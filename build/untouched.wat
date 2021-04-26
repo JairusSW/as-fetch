@@ -6,15 +6,16 @@
  (type $i32_i32_i32_=>_i32 (func (param i32 i32 i32) (result i32)))
  (type $i32_i32_i32_=>_none (func (param i32 i32 i32)))
  (type $none_=>_none (func))
- (type $i32_i32_i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32 i32 i32)))
  (type $i32_f64_=>_none (func (param i32 f64)))
  (type $i32_i32_i32_i32_=>_i32 (func (param i32 i32 i32 i32) (result i32)))
  (type $i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32)))
+ (type $i32_i32_i32_i32_i32_i32_=>_none (func (param i32 i32 i32 i32 i32 i32)))
+ (type $i32_i32_i32_i32_i32_i32_f64_=>_none (func (param i32 i32 i32 i32 i32 i32 f64)))
  (type $i32_f64_i32_i32_=>_none (func (param i32 f64 i32 i32)))
  (type $none_=>_i32 (func (result i32)))
  (type $i32_f64_=>_i32 (func (param i32 f64) (result i32)))
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
- (import "fetch" "_fetch" (func $assembly/fetch/_fetch (param i32 i32 i32 i32 i32 i32)))
+ (import "fetch" "_fetch" (func $assembly/fetch/_fetch (param i32 i32 i32 i32 i32 i32 f64)))
  (import "console" "consoleLog" (func $node_modules/as-console/assembly/console/consoleLog (param i32)))
  (global $assembly/fetch/Uint8Array_ID i32 (i32.const 3))
  (global $assembly/headers/CHARCODE.TAB (mut i32) (i32.const 9))
@@ -50,6 +51,7 @@
  (global $~lib/ASC_LOW_MEMORY_LIMIT i32 (i32.const 0))
  (global $~lib/ASC_SHRINK_LEVEL i32 (i32.const 0))
  (global $~argumentsLength (mut i32) (i32.const 0))
+ (global $assembly/fetch/Fetch i32 (i32.const 5))
  (global $~lib/rt/__rtti_base i32 (i32.const 11424))
  (global $~lib/memory/__data_end i32 (i32.const 11588))
  (global $~lib/memory/__stack_pointer (mut i32) (i32.const 27972))
@@ -108,10 +110,10 @@
  (data (i32.const 11260) "\1c\00\00\00\00\00\00\00\00\00\00\00\13\00\00\00\08\00\00\00\02\00\00\00\00\00\00\00\00\00\00\00")
  (data (i32.const 11292) "<\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00*\00\00\00O\00b\00j\00e\00c\00t\00 \00a\00l\00r\00e\00a\00d\00y\00 \00p\00i\00n\00n\00e\00d\00\00\00")
  (data (i32.const 11356) "<\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00(\00\00\00O\00b\00j\00e\00c\00t\00 \00i\00s\00 \00n\00o\00t\00 \00p\00i\00n\00n\00e\00d\00\00\00\00\00")
- (data (i32.const 11424) "\14\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00A\00\00\00\02\00\00\00\02\t\00\00\00\00\00\00\00\00\00\00\00\00\00\00\02A\00\00\00\00\00\00\02A\00\00\00\00\00\00 \00\00\00\00\00\00\00\04A\00\00\00\00\00\00\00\00\00\00\00\00\00\00\10A\82\00\00\00\00\00\00\00\00\00\0d\00\00\00\00\00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
+ (data (i32.const 11424) "\14\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00A\00\00\00\02\00\00\00\02\t\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\02A\00\00\00\00\00\00\02A\00\00\00\00\00\00\04A\00\00\00\00\00\00\00\00\00\00\00\00\00\00\10A\82\00\00\00\00\00\00\00\00\00\0d\00\00\00\00\00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
  (table $0 3 funcref)
  (elem $0 (i32.const 1) $assembly/fetch/Fetch#constructor~anonymous|0 $assembly/fetch/test~anonymous|0)
- (export "Uint8Array_ID" (global $assembly/fetch/Uint8Array_ID))
+ (export "Fetch" (global $assembly/fetch/Fetch))
  (export "test" (func $assembly/fetch/test))
  (export "__new" (func $~lib/rt/itcms/__new))
  (export "__pin" (func $~lib/rt/itcms/__pin))
@@ -120,6 +122,8 @@
  (export "__rtti_base" (global $~lib/rt/__rtti_base))
  (export "memory" (memory $0))
  (export "table" (table $0))
+ (export "Fetch#constructor" (func $export:assembly/fetch/Fetch#constructor))
+ (export "Fetch#then" (func $export:assembly/fetch/Fetch#then))
  (export "fetch" (func $export:assembly/fetch/fetch))
  (start $~start)
  (func $assembly/util/isNull<~lib/arraybuffer/ArrayBuffer|null> (param $0 i32) (result i32)
@@ -4080,7 +4084,154 @@
   local.get $4
   local.get $5
   i32.load
+  global.get $assembly/fetch/Uint8Array_ID
+  f64.convert_i32_u
   call $assembly/fetch/_fetch
+ )
+ (func $~lib/rt/itcms/__renew (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  local.get $0
+  i32.const 20
+  i32.sub
+  local.set $2
+  local.get $1
+  local.get $2
+  i32.load
+  i32.const 3
+  i32.const -1
+  i32.xor
+  i32.and
+  i32.const 16
+  i32.sub
+  i32.le_u
+  if
+   local.get $2
+   local.get $1
+   call $~lib/rt/itcms/Object#set:rtSize
+   local.get $0
+   return
+  end
+  local.get $1
+  local.get $2
+  i32.load offset=12
+  call $~lib/rt/itcms/__new
+  local.set $3
+  local.get $3
+  local.get $0
+  local.get $1
+  local.tee $4
+  local.get $2
+  i32.load offset=16
+  local.tee $5
+  local.get $4
+  local.get $5
+  i32.lt_u
+  select
+  call $~lib/memory/memory.copy
+  local.get $3
+ )
+ (func $~lib/array/ensureSize (param $0 i32) (param $1 i32) (param $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  local.get $0
+  i32.load offset=8
+  local.set $3
+  local.get $1
+  local.get $3
+  local.get $2
+  i32.shr_u
+  i32.gt_u
+  if
+   local.get $1
+   i32.const 1073741820
+   local.get $2
+   i32.shr_u
+   i32.gt_u
+   if
+    i32.const 192
+    i32.const 864
+    i32.const 14
+    i32.const 48
+    call $~lib/builtins/abort
+    unreachable
+   end
+   local.get $0
+   i32.load
+   local.set $4
+   local.get $1
+   local.get $2
+   i32.shl
+   local.set $5
+   local.get $4
+   local.get $5
+   call $~lib/rt/itcms/__renew
+   local.set $6
+   local.get $6
+   local.get $3
+   i32.add
+   i32.const 0
+   local.get $5
+   local.get $3
+   i32.sub
+   call $~lib/memory/memory.fill
+   local.get $6
+   local.get $4
+   i32.ne
+   if
+    local.get $0
+    local.get $6
+    i32.store
+    local.get $0
+    local.get $6
+    i32.store offset=4
+    local.get $0
+    local.get $6
+    i32.const 0
+    call $~lib/rt/itcms/__link
+   end
+   local.get $0
+   local.get $5
+   i32.store offset=8
+  end
+ )
+ (func $~lib/array/Array<i32>#set:length_ (param $0 i32) (param $1 i32)
+  local.get $0
+  local.get $1
+  i32.store offset=12
+ )
+ (func $~lib/array/Array<i32>#push (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  (local $3 i32)
+  local.get $0
+  i32.load offset=12
+  local.set $2
+  local.get $2
+  i32.const 1
+  i32.add
+  local.set $3
+  local.get $0
+  local.get $3
+  i32.const 2
+  call $~lib/array/ensureSize
+  i32.const 0
+  drop
+  local.get $0
+  i32.load offset=4
+  local.get $2
+  i32.const 2
+  i32.shl
+  i32.add
+  local.get $1
+  i32.store
+  local.get $0
+  local.get $3
+  call $~lib/array/Array<i32>#set:length_
+  local.get $3
  )
  (func $assembly/fetch/fetch (param $0 i32) (param $1 i32) (result i32)
   i32.const 0
@@ -4683,51 +4834,6 @@
   end
   local.get $2
  )
- (func $~lib/rt/itcms/__renew (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  local.get $0
-  i32.const 20
-  i32.sub
-  local.set $2
-  local.get $1
-  local.get $2
-  i32.load
-  i32.const 3
-  i32.const -1
-  i32.xor
-  i32.and
-  i32.const 16
-  i32.sub
-  i32.le_u
-  if
-   local.get $2
-   local.get $1
-   call $~lib/rt/itcms/Object#set:rtSize
-   local.get $0
-   return
-  end
-  local.get $1
-  local.get $2
-  i32.load offset=12
-  call $~lib/rt/itcms/__new
-  local.set $3
-  local.get $3
-  local.get $0
-  local.get $1
-  local.tee $4
-  local.get $2
-  i32.load offset=16
-  local.tee $5
-  local.get $4
-  local.get $5
-  i32.lt_u
-  select
-  call $~lib/memory/memory.copy
-  local.get $3
- )
  (func $~lib/util/string/isSpace (param $0 i32) (result i32)
   (local $1 i32)
   local.get $0
@@ -4842,106 +4948,6 @@
  )
  (func $assembly/Blob/Blob#toString (param $0 i32) (result i32)
   i32.const 11232
- )
- (func $~lib/array/ensureSize (param $0 i32) (param $1 i32) (param $2 i32)
-  (local $3 i32)
-  (local $4 i32)
-  (local $5 i32)
-  (local $6 i32)
-  local.get $0
-  i32.load offset=8
-  local.set $3
-  local.get $1
-  local.get $3
-  local.get $2
-  i32.shr_u
-  i32.gt_u
-  if
-   local.get $1
-   i32.const 1073741820
-   local.get $2
-   i32.shr_u
-   i32.gt_u
-   if
-    i32.const 192
-    i32.const 864
-    i32.const 14
-    i32.const 48
-    call $~lib/builtins/abort
-    unreachable
-   end
-   local.get $0
-   i32.load
-   local.set $4
-   local.get $1
-   local.get $2
-   i32.shl
-   local.set $5
-   local.get $4
-   local.get $5
-   call $~lib/rt/itcms/__renew
-   local.set $6
-   local.get $6
-   local.get $3
-   i32.add
-   i32.const 0
-   local.get $5
-   local.get $3
-   i32.sub
-   call $~lib/memory/memory.fill
-   local.get $6
-   local.get $4
-   i32.ne
-   if
-    local.get $0
-    local.get $6
-    i32.store
-    local.get $0
-    local.get $6
-    i32.store offset=4
-    local.get $0
-    local.get $6
-    i32.const 0
-    call $~lib/rt/itcms/__link
-   end
-   local.get $0
-   local.get $5
-   i32.store offset=8
-  end
- )
- (func $~lib/array/Array<i32>#set:length_ (param $0 i32) (param $1 i32)
-  local.get $0
-  local.get $1
-  i32.store offset=12
- )
- (func $~lib/array/Array<i32>#push (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
-  (local $3 i32)
-  local.get $0
-  i32.load offset=12
-  local.set $2
-  local.get $2
-  i32.const 1
-  i32.add
-  local.set $3
-  local.get $0
-  local.get $3
-  i32.const 2
-  call $~lib/array/ensureSize
-  i32.const 0
-  drop
-  local.get $0
-  i32.load offset=4
-  local.get $2
-  i32.const 2
-  i32.shl
-  i32.add
-  local.get $1
-  i32.store
-  local.get $0
-  local.get $3
-  call $~lib/array/Array<i32>#set:length_
-  local.get $3
  )
  (func $~lib/rt/itcms/__pin (param $0 i32) (result i32)
   (local $1 i32)
@@ -5535,10 +5541,10 @@
            block $~lib/map/Map<~lib/string/String,~lib/array/Array<~lib/string/String>>
             block $assembly/headers/Headers
              block $~lib/staticarray/StaticArray<~lib/string/String>
-              block $assembly/fetch/Fetch
-               block $~lib/array/Array<~lib/array/Array<~lib/string/String>>
-                block $~lib/array/Array<~lib/string/String>
-                 block $assembly/request/RequestInit
+              block $~lib/array/Array<~lib/array/Array<~lib/string/String>>
+               block $~lib/array/Array<~lib/string/String>
+                block $assembly/request/RequestInit
+                 block $assembly/fetch/Fetch
                   block $~lib/array/Array<i32>
                    block $~lib/typedarray/Uint8Array
                     block $~lib/arraybuffer/ArrayBufferView
@@ -5548,7 +5554,7 @@
                        i32.const 8
                        i32.sub
                        i32.load
-                       br_table $~lib/arraybuffer/ArrayBuffer $~lib/string/String $~lib/arraybuffer/ArrayBufferView $~lib/typedarray/Uint8Array $~lib/array/Array<i32> $assembly/request/RequestInit $~lib/array/Array<~lib/string/String> $~lib/array/Array<~lib/array/Array<~lib/string/String>> $assembly/fetch/Fetch $~lib/staticarray/StaticArray<~lib/string/String> $assembly/headers/Headers $~lib/map/Map<~lib/string/String,~lib/array/Array<~lib/string/String>> $assembly/response/Response $assembly/body/Body $assembly/status/Status $assembly/response/ResponseInit $~lib/function/Function<%28~lib/typedarray/Uint8Array%2Cf64%2C~lib/string/String%2Ci32%29=>void> $assembly/Blob/Blob $assembly/Blob/BlobOptions $~lib/function/Function<%28assembly/response/Response%29=>void> $invalid
+                       br_table $~lib/arraybuffer/ArrayBuffer $~lib/string/String $~lib/arraybuffer/ArrayBufferView $~lib/typedarray/Uint8Array $~lib/array/Array<i32> $assembly/fetch/Fetch $assembly/request/RequestInit $~lib/array/Array<~lib/string/String> $~lib/array/Array<~lib/array/Array<~lib/string/String>> $~lib/staticarray/StaticArray<~lib/string/String> $assembly/headers/Headers $~lib/map/Map<~lib/string/String,~lib/array/Array<~lib/string/String>> $assembly/response/Response $assembly/body/Body $assembly/status/Status $assembly/response/ResponseInit $~lib/function/Function<%28~lib/typedarray/Uint8Array%2Cf64%2C~lib/string/String%2Ci32%29=>void> $assembly/Blob/Blob $assembly/Blob/BlobOptions $~lib/function/Function<%28assembly/response/Response%29=>void> $invalid
                       end
                       return
                      end
@@ -5569,21 +5575,21 @@
                   call $~lib/array/Array<i32>~visit
                   return
                  end
-                 local.get $0
-                 local.get $1
-                 call $assembly/request/RequestInit~visit
                  return
                 end
                 local.get $0
                 local.get $1
-                call $~lib/array/Array<~lib/string/String>~visit
+                call $assembly/request/RequestInit~visit
                 return
                end
                local.get $0
                local.get $1
-               call $~lib/array/Array<~lib/array/Array<~lib/string/String>>~visit
+               call $~lib/array/Array<~lib/string/String>~visit
                return
               end
+              local.get $0
+              local.get $1
+              call $~lib/array/Array<~lib/array/Array<~lib/string/String>>~visit
               return
              end
              local.get $0
@@ -5900,7 +5906,7 @@
   if
    global.get $~lib/memory/__stack_pointer
    i32.const 0
-   i32.const 8
+   i32.const 5
    call $~lib/rt/itcms/__new
    local.tee $0
    i32.store
@@ -5947,7 +5953,7 @@
    global.get $~lib/memory/__stack_pointer
    i32.const 1
    i32.const 2
-   i32.const 7
+   i32.const 8
    i32.const 0
    call $~lib/rt/__newArray
    local.tee $4
@@ -5961,7 +5967,7 @@
    i32.const 0
    i32.const 1
    i32.const 2
-   i32.const 6
+   i32.const 7
    i32.const 800
    call $~lib/rt/__newArray
    call $~lib/array/Array<~lib/array/Array<~lib/string/String>>#__uset
@@ -6113,6 +6119,34 @@
   i32.add
   global.set $~lib/memory/__stack_pointer
   local.get $11
+ )
+ (func $assembly/fetch/Fetch#then (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  global.get $~lib/memory/__stack_pointer
+  i32.const 4
+  i32.sub
+  global.set $~lib/memory/__stack_pointer
+  call $~stack_check
+  global.get $~lib/memory/__stack_pointer
+  i32.const 0
+  i32.store
+  global.get $assembly/fetch/_thenPointers
+  local.set $2
+  global.get $~lib/memory/__stack_pointer
+  local.get $2
+  i32.store
+  local.get $2
+  local.get $1
+  i32.load
+  call $~lib/array/Array<i32>#push
+  drop
+  local.get $0
+  local.set $2
+  global.get $~lib/memory/__stack_pointer
+  i32.const 4
+  i32.add
+  global.set $~lib/memory/__stack_pointer
+  local.get $2
  )
  (func $assembly/Blob/Blob#constructor (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
@@ -6363,34 +6397,6 @@
   i32.add
   global.set $~lib/memory/__stack_pointer
  )
- (func $assembly/fetch/Fetch#then (param $0 i32) (param $1 i32) (result i32)
-  (local $2 i32)
-  global.get $~lib/memory/__stack_pointer
-  i32.const 4
-  i32.sub
-  global.set $~lib/memory/__stack_pointer
-  call $~stack_check
-  global.get $~lib/memory/__stack_pointer
-  i32.const 0
-  i32.store
-  global.get $assembly/fetch/_thenPointers
-  local.set $2
-  global.get $~lib/memory/__stack_pointer
-  local.get $2
-  i32.store
-  local.get $2
-  local.get $1
-  i32.load
-  call $~lib/array/Array<i32>#push
-  drop
-  local.get $0
-  local.set $2
-  global.get $~lib/memory/__stack_pointer
-  i32.const 4
-  i32.add
-  global.set $~lib/memory/__stack_pointer
-  local.get $2
- )
  (func $assembly/fetch/test
   (local $0 i32)
   (local $1 i32)
@@ -6433,7 +6439,7 @@
   global.get $~lib/memory/__stack_pointer
   i32.const 2
   i32.const 2
-  i32.const 7
+  i32.const 8
   i32.const 0
   call $~lib/rt/__newArray
   local.tee $1
@@ -6447,7 +6453,7 @@
   i32.const 0
   i32.const 2
   i32.const 2
-  i32.const 6
+  i32.const 7
   i32.const 1424
   call $~lib/rt/__newArray
   call $~lib/array/Array<~lib/array/Array<~lib/string/String>>#__uset
@@ -6455,7 +6461,7 @@
   i32.const 1
   i32.const 2
   i32.const 2
-  i32.const 6
+  i32.const 7
   i32.const 1552
   call $~lib/rt/__newArray
   call $~lib/array/Array<~lib/array/Array<~lib/string/String>>#__uset
@@ -7461,7 +7467,7 @@
   if
    global.get $~lib/memory/__stack_pointer
    i32.const 16
-   i32.const 5
+   i32.const 6
    call $~lib/rt/itcms/__new
    local.tee $0
    i32.store
@@ -8452,6 +8458,56 @@
   i32.add
   global.set $~lib/memory/__stack_pointer
   local.get $13
+ )
+ (func $export:assembly/fetch/Fetch#constructor (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+  (local $3 i32)
+  global.get $~lib/memory/__stack_pointer
+  i32.const 12
+  i32.sub
+  global.set $~lib/memory/__stack_pointer
+  call $~stack_check
+  global.get $~lib/memory/__stack_pointer
+  local.get $0
+  i32.store
+  global.get $~lib/memory/__stack_pointer
+  local.get $1
+  i32.store offset=4
+  global.get $~lib/memory/__stack_pointer
+  local.get $2
+  i32.store offset=8
+  local.get $0
+  local.get $1
+  local.get $2
+  call $assembly/fetch/Fetch#constructor
+  local.set $3
+  global.get $~lib/memory/__stack_pointer
+  i32.const 12
+  i32.add
+  global.set $~lib/memory/__stack_pointer
+  local.get $3
+ )
+ (func $export:assembly/fetch/Fetch#then (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  global.get $~lib/memory/__stack_pointer
+  i32.const 8
+  i32.sub
+  global.set $~lib/memory/__stack_pointer
+  call $~stack_check
+  global.get $~lib/memory/__stack_pointer
+  local.get $0
+  i32.store
+  global.get $~lib/memory/__stack_pointer
+  local.get $1
+  i32.store offset=4
+  local.get $0
+  local.get $1
+  call $assembly/fetch/Fetch#then
+  local.set $2
+  global.get $~lib/memory/__stack_pointer
+  i32.const 8
+  i32.add
+  global.set $~lib/memory/__stack_pointer
+  local.get $2
  )
  (func $export:assembly/fetch/fetch (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)

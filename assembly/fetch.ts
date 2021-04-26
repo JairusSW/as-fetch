@@ -1,18 +1,18 @@
 // JS Fetch Bindings
-declare function _fetch(url: string, method: string, mode: string, body: Uint8Array, headers: string, pointer: i32): void
+declare function _fetch(url: string, method: string, mode: string, body: Uint8Array, headers: string, pointer: i32, id: number): void
 
-export const Uint8Array_ID = idof<Uint8Array>()
+const Uint8Array_ID = idof<Uint8Array>()
 
 // Module Imports
-import { Request, RequestInit, Response, ResponseInit, Body, Headers} from './'
-
-import { isNull } from './util'
+import { RequestInit, Response, Headers} from './'
 
 import { console } from '../node_modules/as-console/assembly/console'
 
+import { isNull } from './util'
+
 function fetchBindings(url: string, method: string, mode: string, body: Uint8Array, headers: string, callback: (body: Uint8Array, status: number, url: string, redirected: i32) => void): void {
 
-  _fetch(url, method, mode, body, headers, load<i32>(changetype<usize>(callback)))
+  _fetch(url, method, mode, body, headers, load<i32>(changetype<usize>(callback)), Uint8Array_ID)
 
 }
 
@@ -20,7 +20,7 @@ const _thenPointers: Array<i32> = []
 
 const _catchPointers: Array<i32> = []
 
-class Fetch {
+export class Fetch {
   constructor(url: string, init: RequestInit) {
 
     const body = isNull(init.body) ? new Uint8Array(0) : Uint8Array.wrap(changetype<ArrayBuffer>(init.body))

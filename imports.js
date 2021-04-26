@@ -15,30 +15,9 @@ class ImportManager {
         this._exports = null
 
         this.wasmImports = {
-            Promise: {
-                _defer: callbackIndex => {
-                    Promise.resolve().then(this.getFn(callbackIndex))
-                },
-                _deferWithArg: (callbackIndex, argPtr) => {
-                    // Prevent the thing pointed to by argPtr from being collectd, because the callback needs it later.
-                    this.__pin(argPtr)
-    
-                    Promise.resolve().then(() => {
-                        // At this point, is the callback collected? Did we need to
-                        // __pin the callback too, and it currently works by
-                        // accident?
-    
-                        this.getFn(callbackIndex)(argPtr)
-    
-                        this.__unpin(argPtr)
-                    })
-                }
-            },
             fetch: {
                 // Imports...
-                _fetch: (url, method, mode, body, headers, pointer) => {
-
-                    const id = this._exports.Uint8Array_ID
+                _fetch: (url, method, mode, body, headers, pointer, id) => {
 
                     const callback = this.getFn(pointer)
                     //--> Get callback via pointer

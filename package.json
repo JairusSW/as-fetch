@@ -1,6 +1,6 @@
 {
   "name": "as-fetch",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Fetch API brought to AssemblyScript",
   "main": "imports.js",
   "ascMain": "assembly/fetch.ts",
@@ -22,21 +22,21 @@
     "client",
     "request"
   ],
-  "author": "Jairus Tanaka / Joe Pea",
-  "contributors": {
-    "Fastly, Inc.": "Aaron Turner"
-  },
+  "author": "Jairus Tanaka",
+  "contributors": ["Aaron Turner (Fastly)", "Joe Pea (trusktr)"],
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/AssemblyScript-Community/as-fetch/issues"
   },
   "homepage": "https://github.com/AssemblyScript-Community/as-fetch#readme",
   "devDependencies": {
+    "@assemblyscript/loader": "^0.18.27",
     "assemblyscript": "^0.18.27",
-    "fastify": "^3.15.0",
-    "@assemblyscript/loader": "^0.18.27"
+    "fastify": "^3.15.0"
   },
   "dependencies": {
+    "@assemblyscript/loader": "^0.18.27",
+    "as-console": "^4.0.3",
     "cross-fetch": "^3.1.4"
   }
 }
