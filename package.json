@@ -1,0 +1,45 @@
+{
+  "name": "as-fetch",
+  "version": "1.0.0",
+  "description": "Fetch API brought to AssemblyScript",
+  "main": "imports.js",
+  "ascMain": "assembly/fetch.ts",
+  "types": "assembly/fetch.ts",
+  "scripts": {
+    "test": "node tests",
+    "asbuild:untouched": "asc assembly/fetch.ts --target debug --exportRuntime --exportTable",
+    "asbuild:optimized": "asc assembly/fetch.ts --target release --exportRuntime --exportTable",
+    "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JairusSW/as-fetch.git"
+  },
+  "keywords": [
+    "assemblyscript",
+    "fetch",
+    "http",
+    "client",
+    "request"
+  ],
+  "author": "Jairus Tanaka / Joe Pea",
+  "contributors": {
+    "Fastly, Inc.": "Aaron Turner"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/JairusSW/as-fetch/issues"
+  },
+  "homepage": "https://github.com/JairusSW/as-fetch#readme",
+  "devDependencies": {
+    "assemblyscript": "^0.18.27"
+  },
+  "dependencies": {
+    "@assemblyscript/loader": "^0.18.27",
+    "@fastly/as-fetch": "^0.2.0",
+    "as-console": "^4.0.3",
+    "as-http": "^1.2.0",
+    "cross-fetch": "^3.1.4",
+    "fastify": "^3.15.0"
+  }
+}
