@@ -16,6 +16,7 @@
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "fetch" "_fetch" (func $assembly/fetch/_fetch (param i32 i32 i32 i32 i32 i32)))
  (import "console" "consoleLog" (func $node_modules/as-console/assembly/console/consoleLog (param i32)))
+ (global $assembly/fetch/Uint8Array_ID i32 (i32.const 3))
  (global $assembly/headers/CHARCODE.TAB (mut i32) (i32.const 9))
  (global $assembly/headers/CHARCODE.UNIT_SEPERATOR (mut i32) (i32.const 31))
  (global $assembly/headers/CHARCODE.EXCLAMATION_POINT (mut i32) (i32.const 33))
@@ -55,9 +56,9 @@
  (global $~lib/memory/__heap_base i32 (i32.const 27972))
  (memory $0 1)
  (data (i32.const 12) "\1c\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 44) ",\00\00\00\00\00\00\00\00\00\00\00\03\00\00\00\10\00\00\00 \00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
+ (data (i32.const 44) ",\00\00\00\00\00\00\00\00\00\00\00\04\00\00\00\10\00\00\00 \00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
  (data (i32.const 92) "\1c\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
- (data (i32.const 124) ",\00\00\00\00\00\00\00\00\00\00\00\03\00\00\00\10\00\00\00p\00\00\00p\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
+ (data (i32.const 124) ",\00\00\00\00\00\00\00\00\00\00\00\04\00\00\00\10\00\00\00p\00\00\00p\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
  (data (i32.const 172) ",\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00\1c\00\00\00I\00n\00v\00a\00l\00i\00d\00 \00l\00e\00n\00g\00t\00h\00")
  (data (i32.const 220) "<\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00&\00\00\00~\00l\00i\00b\00/\00a\00r\00r\00a\00y\00b\00u\00f\00f\00e\00r\00.\00t\00s\00\00\00\00\00\00\00")
  (data (i32.const 284) "<\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00(\00\00\00A\00l\00l\00o\00c\00a\00t\00i\00o\00n\00 \00t\00o\00o\00 \00l\00a\00r\00g\00e\00\00\00\00\00")
@@ -107,9 +108,10 @@
  (data (i32.const 11260) "\1c\00\00\00\00\00\00\00\00\00\00\00\13\00\00\00\08\00\00\00\02\00\00\00\00\00\00\00\00\00\00\00")
  (data (i32.const 11292) "<\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00*\00\00\00O\00b\00j\00e\00c\00t\00 \00a\00l\00r\00e\00a\00d\00y\00 \00p\00i\00n\00n\00e\00d\00\00\00")
  (data (i32.const 11356) "<\00\00\00\00\00\00\00\00\00\00\00\01\00\00\00(\00\00\00O\00b\00j\00e\00c\00t\00 \00i\00s\00 \00n\00o\00t\00 \00p\00i\00n\00n\00e\00d\00\00\00\00\00")
- (data (i32.const 11424) "\14\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\02\t\00\00\00\00\00\00\00\00\00\00\00\00\00\00\02A\00\00\00\00\00\00\02A\00\00\00\00\00\00 \00\00\00\00\00\00\00A\00\00\00\02\00\00\00\04A\00\00\00\00\00\00\00\00\00\00\00\00\00\00\10A\82\00\00\00\00\00\00\00\00\00\0d\00\00\00\00\00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
+ (data (i32.const 11424) "\14\00\00\00 \00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00A\00\00\00\02\00\00\00\02\t\00\00\00\00\00\00\00\00\00\00\00\00\00\00\02A\00\00\00\00\00\00\02A\00\00\00\00\00\00 \00\00\00\00\00\00\00\04A\00\00\00\00\00\00\00\00\00\00\00\00\00\00\10A\82\00\00\00\00\00\00\00\00\00\0d\00\00\00\00\00\00\00\00\00\00\00 \00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00\00")
  (table $0 3 funcref)
  (elem $0 (i32.const 1) $assembly/fetch/Fetch#constructor~anonymous|0 $assembly/fetch/test~anonymous|0)
+ (export "Uint8Array_ID" (global $assembly/fetch/Uint8Array_ID))
  (export "test" (func $assembly/fetch/test))
  (export "__new" (func $~lib/rt/itcms/__new))
  (export "__pin" (func $~lib/rt/itcms/__pin))
@@ -5109,6 +5111,11 @@
    call $~lib/rt/itcms/__visit
   end
  )
+ (func $~lib/typedarray/Uint8Array~visit (param $0 i32) (param $1 i32)
+  local.get $0
+  local.get $1
+  call $~lib/arraybuffer/ArrayBufferView~visit
+ )
  (func $~lib/array/Array<i32>#__visit (param $0 i32) (param $1 i32)
   i32.const 0
   drop
@@ -5256,11 +5263,6 @@
   local.get $0
   local.get $1
   call $~lib/array/Array<~lib/array/Array<~lib/string/String>>#__visit
- )
- (func $~lib/typedarray/Uint8Array~visit (param $0 i32) (param $1 i32)
-  local.get $0
-  local.get $1
-  call $~lib/arraybuffer/ArrayBufferView~visit
  )
  (func $~lib/staticarray/StaticArray<~lib/string/String>#__visit (param $0 i32) (param $1 i32)
   (local $2 i32)
@@ -5533,12 +5535,12 @@
            block $~lib/map/Map<~lib/string/String,~lib/array/Array<~lib/string/String>>
             block $assembly/headers/Headers
              block $~lib/staticarray/StaticArray<~lib/string/String>
-              block $~lib/typedarray/Uint8Array
-               block $assembly/fetch/Fetch
-                block $~lib/array/Array<~lib/array/Array<~lib/string/String>>
-                 block $~lib/array/Array<~lib/string/String>
-                  block $assembly/request/RequestInit
-                   block $~lib/array/Array<i32>
+              block $assembly/fetch/Fetch
+               block $~lib/array/Array<~lib/array/Array<~lib/string/String>>
+                block $~lib/array/Array<~lib/string/String>
+                 block $assembly/request/RequestInit
+                  block $~lib/array/Array<i32>
+                   block $~lib/typedarray/Uint8Array
                     block $~lib/arraybuffer/ArrayBufferView
                      block $~lib/string/String
                       block $~lib/arraybuffer/ArrayBuffer
@@ -5546,7 +5548,7 @@
                        i32.const 8
                        i32.sub
                        i32.load
-                       br_table $~lib/arraybuffer/ArrayBuffer $~lib/string/String $~lib/arraybuffer/ArrayBufferView $~lib/array/Array<i32> $assembly/request/RequestInit $~lib/array/Array<~lib/string/String> $~lib/array/Array<~lib/array/Array<~lib/string/String>> $assembly/fetch/Fetch $~lib/typedarray/Uint8Array $~lib/staticarray/StaticArray<~lib/string/String> $assembly/headers/Headers $~lib/map/Map<~lib/string/String,~lib/array/Array<~lib/string/String>> $assembly/response/Response $assembly/body/Body $assembly/status/Status $assembly/response/ResponseInit $~lib/function/Function<%28~lib/typedarray/Uint8Array%2Cf64%2C~lib/string/String%2Ci32%29=>void> $assembly/Blob/Blob $assembly/Blob/BlobOptions $~lib/function/Function<%28assembly/response/Response%29=>void> $invalid
+                       br_table $~lib/arraybuffer/ArrayBuffer $~lib/string/String $~lib/arraybuffer/ArrayBufferView $~lib/typedarray/Uint8Array $~lib/array/Array<i32> $assembly/request/RequestInit $~lib/array/Array<~lib/string/String> $~lib/array/Array<~lib/array/Array<~lib/string/String>> $assembly/fetch/Fetch $~lib/staticarray/StaticArray<~lib/string/String> $assembly/headers/Headers $~lib/map/Map<~lib/string/String,~lib/array/Array<~lib/string/String>> $assembly/response/Response $assembly/body/Body $assembly/status/Status $assembly/response/ResponseInit $~lib/function/Function<%28~lib/typedarray/Uint8Array%2Cf64%2C~lib/string/String%2Ci32%29=>void> $assembly/Blob/Blob $assembly/Blob/BlobOptions $~lib/function/Function<%28assembly/response/Response%29=>void> $invalid
                       end
                       return
                      end
@@ -5559,29 +5561,29 @@
                    end
                    local.get $0
                    local.get $1
-                   call $~lib/array/Array<i32>~visit
+                   call $~lib/typedarray/Uint8Array~visit
                    return
                   end
                   local.get $0
                   local.get $1
-                  call $assembly/request/RequestInit~visit
+                  call $~lib/array/Array<i32>~visit
                   return
                  end
                  local.get $0
                  local.get $1
-                 call $~lib/array/Array<~lib/string/String>~visit
+                 call $assembly/request/RequestInit~visit
                  return
                 end
                 local.get $0
                 local.get $1
-                call $~lib/array/Array<~lib/array/Array<~lib/string/String>>~visit
+                call $~lib/array/Array<~lib/string/String>~visit
                 return
                end
+               local.get $0
+               local.get $1
+               call $~lib/array/Array<~lib/array/Array<~lib/string/String>>~visit
                return
               end
-              local.get $0
-              local.get $1
-              call $~lib/typedarray/Uint8Array~visit
               return
              end
              local.get $0
@@ -5898,7 +5900,7 @@
   if
    global.get $~lib/memory/__stack_pointer
    i32.const 0
-   i32.const 7
+   i32.const 8
    call $~lib/rt/itcms/__new
    local.tee $0
    i32.store
@@ -5945,7 +5947,7 @@
    global.get $~lib/memory/__stack_pointer
    i32.const 1
    i32.const 2
-   i32.const 6
+   i32.const 7
    i32.const 0
    call $~lib/rt/__newArray
    local.tee $4
@@ -5959,7 +5961,7 @@
    i32.const 0
    i32.const 1
    i32.const 2
-   i32.const 5
+   i32.const 6
    i32.const 800
    call $~lib/rt/__newArray
    call $~lib/array/Array<~lib/array/Array<~lib/string/String>>#__uset
@@ -6431,7 +6433,7 @@
   global.get $~lib/memory/__stack_pointer
   i32.const 2
   i32.const 2
-  i32.const 6
+  i32.const 7
   i32.const 0
   call $~lib/rt/__newArray
   local.tee $1
@@ -6445,7 +6447,7 @@
   i32.const 0
   i32.const 2
   i32.const 2
-  i32.const 5
+  i32.const 6
   i32.const 1424
   call $~lib/rt/__newArray
   call $~lib/array/Array<~lib/array/Array<~lib/string/String>>#__uset
@@ -6453,7 +6455,7 @@
   i32.const 1
   i32.const 2
   i32.const 2
-  i32.const 5
+  i32.const 6
   i32.const 1552
   call $~lib/rt/__newArray
   call $~lib/array/Array<~lib/array/Array<~lib/string/String>>#__uset
@@ -6585,7 +6587,7 @@
   if
    global.get $~lib/memory/__stack_pointer
    i32.const 12
-   i32.const 8
+   i32.const 3
    call $~lib/rt/itcms/__new
    local.tee $0
    i32.store
@@ -6697,7 +6699,7 @@
   end
   global.get $~lib/memory/__stack_pointer
   i32.const 12
-  i32.const 8
+  i32.const 3
   call $~lib/rt/itcms/__new
   local.tee $8
   i32.store
@@ -7459,7 +7461,7 @@
   if
    global.get $~lib/memory/__stack_pointer
    i32.const 16
-   i32.const 4
+   i32.const 5
    call $~lib/rt/itcms/__new
    local.tee $0
    i32.store

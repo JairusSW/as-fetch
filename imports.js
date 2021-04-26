@@ -38,6 +38,8 @@ class ImportManager {
                 // Imports...
                 _fetch: (url, method, mode, body, headers, pointer) => {
 
+                    const id = this._exports.Uint8Array_ID
+
                     const callback = this.getFn(pointer)
                     //--> Get callback via pointer
 
@@ -62,7 +64,7 @@ class ImportManager {
 
                         const body = await response.arrayBuffer()
 
-                        callback(this._exports.__newArray(3, Buffer.from(body)), response.status, this._exports.__newString(response.url), response.redirected ? 1 : 0)
+                        callback(this._exports.__newArray(id, Buffer.from(body)), response.status, this._exports.__newString(response.url), response.redirected ? 1 : 0)
                         //--> Execute callback on finish. Returning an ArrayBuffer is the fastest.
                     })
                 }

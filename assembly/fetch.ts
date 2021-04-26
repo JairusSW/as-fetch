@@ -1,6 +1,8 @@
 // JS Fetch Bindings
 declare function _fetch(url: string, method: string, mode: string, body: Uint8Array, headers: string, pointer: i32): void
 
+export const Uint8Array_ID = idof<Uint8Array>()
+
 // Module Imports
 import { Request, RequestInit, Response, ResponseInit, Body, Headers} from './'
 
