@@ -12,5 +12,5 @@ wasmModule.exports.test()
 /*
 fetch().then((res) => {
 
-    res.redirected
+    res.blob()
 })*/

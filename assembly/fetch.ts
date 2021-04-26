@@ -81,10 +81,15 @@ export function test(): void {
       ['content-type', 'text/plain'],
       ['powered', 'assemblyscript']
     ],
+    body: String.UTF8.encode('Hello World!'),
     mode: 'no-cors'
   }).then((res) => {
 
-    console.log('Response: ' + res.text())
+    const blob = res.blob()
+
+    console.log('Text: ' + blob.text())
+
+    console.log('String: ' + blob.toString())
 
   })
 

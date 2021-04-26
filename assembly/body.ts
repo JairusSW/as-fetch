@@ -1,4 +1,7 @@
 // Copyright 2020 Fastly, Inc.
+// Edited by Jairus Tanaka and Contributors
+
+import { Blob } from './Blob'
 
 /**
  * Body for [Fetch HTTP Requests and Responses](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#Body).
@@ -35,7 +38,7 @@ export class Body {
   }
 
   /**
-   * @returns an `ArrayBuffer` for the Body content (if it contains one).
+   * @returns an `ArrayBuffer` for the Body content.
    */
   arrayBuffer(): ArrayBuffer {
     this._consumeBody();
@@ -46,7 +49,21 @@ export class Body {
     return Uint8Array.wrap(this._buffer);
   }
 
-  // TODO: Blob
+  /**
+   * @returns an `Blob` for the Body content.
+   */
+  blob(): Blob {
+    this._consumeBody();
+  
+    if (this._buffer == null) {
+      return new Blob(new Uint8Array(0), {
+        type: 'text/plain'
+      });
+    }
+    return new Blob(Uint8Array.wrap(changetype<ArrayBuffer>(this._buffer)), {
+      type: 'text/plain'
+    });
+  }
 
   // TODO: JSON
 

@@ -12,14 +12,14 @@
 Add the `--exportRuntime` and `--exportTable` flags
 
 ```js
-const loader = require("@assemblyscript/loader");
-const FetchImports = require('as-fetch')
-const Fetch = new FetchImports()
+const loader = require('@assemblyscript/loader')
++ const FetchImports = require('as-fetch')
++ const Fetch = new FetchImports()
 const imports = {
-    ...Fetch.wasmImports
-};
-const wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + "/build/optimized.wasm"), imports);
-Fetch.wasmExports = wasmModule.exports
+    + ...Fetch.wasmImports
+}
+const wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + '/build/optimized.wasm'), imports)
++ Fetch.wasmExports = wasmModule.exports
 ```
 
 ## Usage
