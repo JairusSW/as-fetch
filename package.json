@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JairusSW/as-fetch.git"
+    "url": "git+https://github.com/AssemblyScript-Community/as-fetch.git"
   },
   "keywords": [
     "assemblyscript",
@@ -28,18 +28,15 @@
   },
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/JairusSW/as-fetch/issues"
+    "url": "https://github.com/AssemblyScript-Community/as-fetch/issues"
   },
-  "homepage": "https://github.com/JairusSW/as-fetch#readme",
+  "homepage": "https://github.com/AssemblyScript-Community/as-fetch#readme",
   "devDependencies": {
-    "assemblyscript": "^0.18.27"
+    "assemblyscript": "^0.18.27",
+    "fastify": "^3.15.0",
+    "@assemblyscript/loader": "^0.18.27"
   },
   "dependencies": {
-    "@assemblyscript/loader": "^0.18.27",
-    "@fastly/as-fetch": "^0.2.0",
-    "as-console": "^4.0.3",
-    "as-http": "^1.2.0",
-    "cross-fetch": "^3.1.4",
-    "fastify": "^3.15.0"
+    "cross-fetch": "^3.1.4"
   }
 }
