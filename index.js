@@ -9,8 +9,3 @@ const wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + "/build/op
 Fetch.wasmExports = wasmModule.exports
 //module.exports = wasmModule.exports;
 wasmModule.exports.test()
-/*
-fetch().then((res) => {
-
-    res.blob()
-})*/

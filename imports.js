@@ -109,7 +109,9 @@ class ImportManager {
 			throw new Error(
 				'Make sure you set .wasmExports after instantiating the Wasm module but before running the Wasm module.',
 			)
-        if (!this._exports['table']) return () => {}
+        if (!this._exports['table']) return () => {
+            throw new Error('Could not access table. Did you add the --exportTable flag?')
+        }
 		return this._exports.table.get(fnIndex)
 	}
 }
