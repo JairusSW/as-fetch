@@ -1,10 +1,11 @@
-# As-Fetch
-**Fetch API brought to AssemblyScript**
+# Fetch
+
+**The `fetch()` API brought to AssemblyScript**
 
 ## Installation
 
 ```bash
-~ npm install as-fetch
+npm install as-fetch
 ```
 
 ## Requirements
@@ -13,13 +14,13 @@ Add the `--exportRuntime` and `--exportTable` flags
 
 ```js
 const loader = require('@assemblyscript/loader')
-+ const FetchImports = require('as-fetch')
-+ const Fetch = new FetchImports()
+const FetchImports = require('as-fetch')
+const Fetch = new FetchImports()
 const imports = {
     + ...Fetch.wasmImports
 }
 const wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + '/build/optimized.wasm'), imports)
-+ Fetch.wasmExports = wasmModule.exports
+Fetch.wasmExports = wasmModule.exports
 ```
 
 ## Usage
@@ -27,40 +28,34 @@ const wasmModule = loader.instantiateSync(fs.readFileSync(__dirname + '/build/op
 **GET Request**
 
 ```js
-import { fetch } from 'as-fetch'
+import { fetch } from "as-fetch";
 
-fetch('https://example.com/get', {
-    method: 'GET',
-    mode: 'no-cors',
-    headers: []
+fetch("https://example.com/get", {
+  method: "GET",
+  mode: "no-cors",
+  headers: [],
 }).then((response) => {
+  const text = response.text();
 
-    const text = response.text()
-
-    console.log('Response: ' + text)
-
-})
+  console.log("Response: " + text);
+});
 ```
 
 **POST Request**
 
 ```js
-import { fetch } from 'as-fetch'
+import { fetch } from "as-fetch";
 
-fetch('https://example.com/post', {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: [
-        ['content-type', 'text/plain']
-    ],
-    body: String.UTF8.encode('Hello World')
+fetch("https://example.com/post", {
+  method: "POST",
+  mode: "no-cors",
+  headers: [["content-type", "text/plain"]],
+  body: String.UTF8.encode("Hello World"),
 }).then((response) => {
+  const text = response.text();
 
-    const text = response.text()
-
-    console.log('Response: ' + text)
-
-})
+  console.log("Response: " + text);
+});
 ```
 
 ## Contributors
