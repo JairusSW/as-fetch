@@ -6,8 +6,6 @@ const Uint8Array_ID = idof<Uint8Array>()
 // Module Imports
 import { RequestInit, Response, Headers} from './'
 
-import { console } from '../node_modules/as-console/assembly/console'
-
 import { isNull } from './util'
 
 function fetchBindings(url: string, method: string, mode: string, body: Uint8Array, headers: string, callback: (body: Uint8Array, status: number, url: string, redirected: i32) => void): void {
@@ -71,28 +69,5 @@ export class Fetch {
 export function fetch(url: string, init: RequestInit): Fetch {
 
   return new Fetch(url, init)
-
-}
-
-// Testing
-export function test(): void {
-// @ts-ignore
-  fetch('http://localhost:3000/post', {
-    method: 'POST',
-    headers: [
-      ['content-type', 'text/plain'],
-      ['powered', 'assemblyscript']
-    ],
-    body: String.UTF8.encode('Hello World!'),
-    mode: 'no-cors'
-  }).then((res) => {
-
-    const blob = res.blob()
-
-    console.log('Text: ' + blob.text())
-
-    console.log('String: ' + blob.toString())
-
-  })
 
 }

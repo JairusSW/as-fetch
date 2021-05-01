@@ -65,4 +65,4 @@ fetch('https://example.com/post', {
 
 ## Contributors
 
-Thank you, Aaron Turner and others on the Fastly team for creating the main implementation of the API! https://www.npmjs.com/package/@fastly/as-fetch
+Thank you, Aaron Turner for creating the main implementation of the API!
