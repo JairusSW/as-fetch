@@ -1,10 +1,10 @@
 {
   "name": "as-fetch",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "Fetch API brought to AssemblyScript",
   "main": "imports.js",
-  "ascMain": "assembly/index.ts",
-  "types": "assembly/fetch.ts",
+  "ascMain": "assembly/fetch.ts",
+  "types": "assenbly/fetch.ts",
   "scripts": {
     "test": "node tests",
     "asbuild:untouched": "asc assembly/fetch.ts --target debug --exportRuntime --exportTable",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AssemblyScript-Community/as-fetch.git"
+    "url": "git+https://github.com/AssemblyScript-Community/fetch.git"
   },
   "keywords": [
     "assemblyscript",
@@ -29,13 +29,12 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AssemblyScript-Community/as-fetch/issues"
+    "url": "https://github.com/AssemblyScript-Community/fetch/issues"
   },
-  "homepage": "https://github.com/AssemblyScript-Community/as-fetch#readme",
+  "homepage": "https://github.com/AssemblyScript-Community/fetch#readme",
   "devDependencies": {
     "@assemblyscript/loader": "^0.18.29",
-    "assemblyscript": "^0.18.29",
-    "fastify": "^3.15.0"
+    "assemblyscript": "^0.18.29"
   },
   "dependencies": {
     "cross-fetch": "^3.1.4"

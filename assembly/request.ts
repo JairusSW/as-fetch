@@ -1,4 +1,5 @@
 // Copyright 2020 Fastly, Inc.
+// Edited by Jairus Tanaka and Contributors
 
 import { Headers } from "./headers";
 import { Body } from "./body";

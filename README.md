@@ -2,28 +2,32 @@
 
 **The `fetch()` API brought to AssemblyScript**
 
-## Installation
+## Installation ⭐
 
 ```bash
 npm install as-fetch
 ```
 
-## Requirements
+## Optional Dependencies 🔥
+
+[Undici-Fetch](https://npmjs.com/package/undici-fetch)
+Provides much faster http requests with Undici.
+```bash
+npm install undici-fetch
+```
+
+## Requirements 🚀
 
 Add the `--exportRuntime` and `--exportTable` flags
 
 ```js
-const loader = require("@assemblyscript/loader");
-const FetchImports = require("as-fetch");
-const Fetch = new FetchImports();
++ const FetchImports = require("as-fetch")
++ const Fetch = new FetchImports()
 const imports = {
-  ...Fetch.wasmImports,
-};
-const wasmModule = loader.instantiateSync(
-  fs.readFileSync(__dirname + "/build/optimized.wasm"),
-  imports
-);
-Fetch.wasmExports = wasmModule.exports;
++  ...Fetch.wasmImports,
+}
+const wasmModule = loader.instantiateSync(...)
++ Fetch.wasmExports = wasmModule.exports
 ```
 
 ## Usage
@@ -39,7 +43,6 @@ fetch("https://example.com/get", {
   headers: [],
 }).then((response) => {
   const text = response.text();
-
   console.log("Response: " + text);
 });
 ```
@@ -56,10 +59,24 @@ fetch("https://example.com/post", {
   body: String.UTF8.encode("Hello World"),
 }).then((response) => {
   const text = response.text();
-
   console.log("Response: " + text);
 });
 ```
+
+## Performance ⚡
+Note: Performance of as-fetch depends on the backend. 😉
+
+100 Requests
+
+Fetch: 847ms -- Undici-Fetch: 21ms -- Node-Fetch: 97ms
+
+1,000 Requests
+
+Fetch: 5,255ms -- Undici-Fetch: 186ms -- Node-Fetch: 657ms
+
+10,000 Requests
+
+Fetch: 46,897ms -- Undici-Fetch: 904ms -- Node-Fetch: 4,795ms
 
 ## Contributors
 

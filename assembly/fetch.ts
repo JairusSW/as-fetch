@@ -1,10 +1,12 @@
+// Created by Jairus Tanaka and Contributors
 // JS Fetch Bindings
+
 declare function _fetch(url: string, method: string, mode: string, body: Uint8Array, headers: string, pointer: i32, id: number): void
 
 const Uint8Array_ID = idof<Uint8Array>()
 
 // Module Imports
-import { RequestInit, Response, Headers} from './'
+import { RequestInit, Response, Headers} from './index'
 
 import { isNull } from './util'
 
@@ -18,6 +20,7 @@ const _thenPointers: Array<i32> = []
 
 const _catchPointers: Array<i32> = []
 
+// Main class
 export class Fetch {
   constructor(url: string, init: RequestInit) {
 
@@ -26,7 +29,7 @@ export class Fetch {
     const headers = isNull(init.headers) ? [['']] : changetype<Array<Array<string>>>(init.headers)
 
     const method = isNull(init.method) ? 'GET' : changetype<string>(init.method)
-
+    // -- GET by default.
     const mode = isNull(init.mode) ? '' : changetype<string>(init.mode)
 
     let headersString = ''
@@ -49,7 +52,7 @@ export class Fetch {
         headers: headerList,
         url: url,
         redirected: (redirected === 0) ? false : true
-        // Better to return numbers
+        // Better and faster to return numbers
       })
     
       for (let i = 0; i < _thenPointers.length; i++) {
@@ -60,12 +63,14 @@ export class Fetch {
     })
 
   }
+  // Not a real promise. Sort of a hack instead. Still works tho!
   then(onfulfilled: (value: Response) => void): Fetch {
     _thenPointers.push(load<i32>(changetype<usize>(onfulfilled)))
     return this
   }
 }
 
+// Just a function that embeds the Fetch class.
 export function fetch(url: string, init: RequestInit): Fetch {
 
   return new Fetch(url, init)

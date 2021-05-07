@@ -1,37 +1,3 @@
-let isBrowser = false
-
-let isUndici = false
-
-let crossFetch = (() => {
-
-    if (typeof require === 'function') {
-        
-        isBrowser = false
-
-        try {
-
-            const undici = require('undici-fetch')
-            // Add undici-fetch support. Fallback to Fetch or cross-fetch.
-            isUndici = true
-
-            return undici
-
-        } catch {
-
-            return require('node-fetch')
-
-        }
-
-    }
-
-    isBrowser = true
-
-    return fetch
-
-})()
-
-// ^ Isomorphic Fetch
-
 class ImportManager {
     
     constructor() {
@@ -58,7 +24,7 @@ class ImportManager {
                     
                     body = (method === 'GET') ? null : this._exports.__getUint8Array(body)
 
-                    crossFetch(this._exports.__getString(url), {
+                    fetch(this._exports.__getString(url), {
                         method: method,
                         mode: mode,
                         body: body,
@@ -69,8 +35,6 @@ class ImportManager {
 
                         callback(this._exports.__newArray(id, Buffer.from(body)), response.status, this._exports.__newString(response.url), response.redirected ? 1 : 0)
                         //--> Execute callback on finish. Returning an ArrayBuffer is the fastest.
-
-                        if (isBrowser === false && isUndici === true) await crossFetch.close()
 
                     })
 

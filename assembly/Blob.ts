@@ -1,3 +1,4 @@
+// 2021 - Made by Jairus Tanaka.
 class BlobOptions {
   type: string | null = null
 }
