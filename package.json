@@ -1,6 +1,6 @@
 {
   "name": "as-fetch",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Fetch API brought to AssemblyScript",
   "main": "imports.js",
   "ascMain": "assembly/fetch.ts",
@@ -38,5 +38,13 @@
   },
   "dependencies": {
     "cross-fetch": "^3.1.4"
+  },
+  "peerDependencies": {
+    "undici-fetch": "^0.2.0"
+  },
+  "peerDependenciesMeta": {
+    "undici-fetch": {
+      "optional": true
+    }
   }
 }
