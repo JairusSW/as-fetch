@@ -1,11 +1,11 @@
-class ImportManager {
+export class FetchImport {
     
     constructor() {
 
         this._exports = null
 
         this.wasmImports = {
-            fetch: {
+            fetchBindings: {
                 // Imports...
                 _fetch: (url, method, mode, body, headers, pointer, id) => {
 
@@ -48,10 +48,6 @@ class ImportManager {
 	}
 	set wasmExports(e) {
 		this._exports = e
-        this._exports.__getString = e.__getString
-        this._exports.__newString = e.__newString
-        this._exports.__newArray = e.__newArray
-        this._exports.__getArray = e.__getArray
 	}
 
 	getFn(fnIndex) {
@@ -65,5 +61,3 @@ class ImportManager {
 		return this._exports.table.get(fnIndex)
 	}
 }
-
-module.exports = ImportManager

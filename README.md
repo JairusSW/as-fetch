@@ -18,11 +18,23 @@ npm install undici-fetch
 
 ## Requirements 🚀
 
-Add the `--exportRuntime` and `--exportTable` flags
+Add the `--exportTable` flag
 
+**CommonJS**
 ```js
-+ const FetchImports = require("as-fetch")
-+ const Fetch = new FetchImports()
++ const FetchImport = require("as-fetch/imports")
++ const Fetch = new FetchImport()
+const imports = {
++  ...Fetch.wasmImports,
+}
+const wasmModule = loader.instantiateSync(...)
++ Fetch.wasmExports = wasmModule.exports
+```
+
+**ESM/Browser**
+```js
++ import { FetchImport } = from "as-fetch/imports.esm.js"
++ const Fetch = new FetchImport()
 const imports = {
 +  ...Fetch.wasmImports,
 }

@@ -1,6 +1,8 @@
 // Created by Jairus Tanaka and Contributors
 // JS Fetch Bindings
 
+// @ts-ignore
+@external('fetchBindings', '_fetch')
 declare function _fetch(url: string, method: string, mode: string, body: Uint8Array, headers: string, pointer: i32, id: number): void
 
 const Uint8Array_ID = idof<Uint8Array>()
