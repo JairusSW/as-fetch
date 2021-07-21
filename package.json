@@ -1,10 +1,10 @@
 {
   "name": "as-fetch",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Fetch API brought to AssemblyScript",
   "main": "imports.js",
   "ascMain": "assembly/fetch.ts",
-  "types": "assenbly/fetch.ts",
+  "types": "assembly/fetch.ts",
   "scripts": {
     "test": "node tests",
     "asbuild:untouched": "asc assembly/fetch.ts --target debug --exportRuntime --exportTable",

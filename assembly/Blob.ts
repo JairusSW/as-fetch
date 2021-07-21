@@ -1,17 +1,14 @@
-// 2021 - Made by Jairus Tanaka.
 class BlobOptions {
-  type: string | null = null
+  type: string | null = null;
 }
 
 export class Blob {
-  private _type: string = 'text/plain'
-  private _buffer: Uint8Array
+  private _type: string = "text/plain";
+  private _buffer: Uint8Array;
   constructor(blobParts: Uint8Array, options: BlobOptions) {
-
-    this._buffer = blobParts
-
-    if (typeof options.type === 'string') this._type = changetype<string>(options.type).toLowerCase().trim()
-
+    this._buffer = blobParts;
+    if (typeof options.type === "string")
+      this._type = changetype<string>(options.type).toLowerCase().trim();
   }
   get size(): number {
     return this._buffer.length;
@@ -23,17 +20,17 @@ export class Blob {
     return String.UTF8.decode(this._buffer.buffer);
   }
   arrayBuffer(): ArrayBuffer {
-    return this._buffer.buffer
+    return this._buffer.buffer;
   }
   /*stream(): Readable {
 
   }*/
   toString(): string {
-    return '[object Blob]';
+    return "[object Blob]";
   }
   slice(start: number, end: number, contentType: string | null = null): Blob {
     return new Blob(this._buffer.slice(start, end), {
-      type: contentType
-    })
+      type: contentType,
+    });
   }
 }
