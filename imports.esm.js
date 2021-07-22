@@ -1,5 +1,16 @@
+const crossFetch = (() => {
+    try {
+        if (typeof fetch === 'function') {
+            return fetch
+        }
+        return require('undici-fetch')
+    } catch {
+        return require('cross-fetch').fetch
+    }
+})()
+
 export class FetchImport {
-    
+
     constructor() {
 
         this._exports = null
@@ -21,10 +32,10 @@ export class FetchImport {
                     if (headers.startsWith(',')) headers = headers.slice(1, headers.length)
 
                     headers = `[${headers}]`
-                    
+
                     body = (method === 'GET') ? null : this._exports.__getUint8Array(body)
 
-                    fetch(this._exports.__getString(url), {
+                    crossFetch(this._exports.__getString(url), {
                         method: method,
                         mode: mode,
                         body: body,
@@ -44,20 +55,20 @@ export class FetchImport {
     }
 
     get wasmExports() {
-		return this._exports
-	}
-	set wasmExports(e) {
-		this._exports = e
-	}
+        return this._exports
+    }
+    set wasmExports(e) {
+        this._exports = e
+    }
 
-	getFn(fnIndex) {
-		if (!this.wasmExports)
-			throw new Error(
-				'Make sure you set .wasmExports after instantiating the Wasm module but before running the Wasm module.',
-			)
+    getFn(fnIndex) {
+        if (!this.wasmExports)
+            throw new Error(
+                'Make sure you set .wasmExports after instantiating the Wasm module but before running the Wasm module.',
+            )
         if (!this._exports['table']) return () => {
             throw new Error('Could not access table. Did you add the --exportTable flag?')
         }
-		return this._exports.table.get(fnIndex)
-	}
+        return this._exports.table.get(fnIndex)
+    }
 }

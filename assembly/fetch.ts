@@ -14,13 +14,15 @@ import { isNull } from './util'
 
 function fetchBindings(url: string, method: string, mode: string, body: Uint8Array, headers: string, callback: (body: Uint8Array, status: number, url: string, redirected: i32) => void): void {
 
-  _fetch(url, method, mode, body, headers, load<i32>(changetype<usize>(callback)), Uint8Array_ID)
+  _fetch(url, method, mode, body, headers, callback.index, Uint8Array_ID)
 
 }
 
 const _thenPointers: Array<i32> = []
 
-const _catchPointers: Array<i32> = []
+let res: i32 = 0
+
+let respo = true
 
 // Main class
 export class Fetch {
@@ -67,12 +69,17 @@ export class Fetch {
   }
   // Not a real promise. Sort of a hack instead. Still works tho!
   then(onfulfilled: (value: Response) => void): Fetch {
-    _thenPointers.push(load<i32>(changetype<usize>(onfulfilled)))
+    _thenPointers.push(onfulfilled.index)
     return this
   }
 }
 
-// Just a function that embeds the Fetch class.
+/**
+ * Fetch
+ * @param url Url to fetch
+ * @param init Options for request
+ * @returns Response
+ */
 export function fetch(url: string, init: RequestInit): Fetch {
 
   return new Fetch(url, init)

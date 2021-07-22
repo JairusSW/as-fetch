@@ -1,3 +1,14 @@
+const crossFetch = (() => {
+    try {
+        if (typeof fetch === 'function') {
+            return fetch
+        }
+        return require('undici-fetch')
+    } catch {
+        return require('cross-fetch').fetch
+    }
+})()
+
 class FetchImport {
     
     constructor() {
@@ -24,7 +35,7 @@ class FetchImport {
                     
                     body = (method === 'GET') ? null : this._exports.__getUint8Array(body)
 
-                    fetch(this._exports.__getString(url), {
+                    crossFetch(this._exports.__getString(url), {
                         method: method,
                         mode: mode,
                         body: body,
