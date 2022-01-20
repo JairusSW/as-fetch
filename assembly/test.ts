@@ -1,6 +1,6 @@
-import { fetch } from "./fetch";
+import { fetch } from ".";
 
-fetch("http://localhost:3000/api-get?name=as-fetch", {
+fetch("http://api.quotable.io/random", {
     method: "GET",
     mode: "no-cors",
     headers: [],

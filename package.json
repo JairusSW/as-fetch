@@ -3,8 +3,8 @@
   "version": "1.1.2",
   "description": "Fetch API brought to AssemblyScript",
   "main": "imports.js",
-  "ascMain": "assembly/fetch.ts",
-  "types": "assembly/fetch.ts",
+  "ascMain": "assembly/index.ts",
+  "types": "assembly/index.ts",
   "scripts": {
     "test": "node tests",
     "asbuild:untouched": "asc assembly/test.ts --target debug --exportRuntime --exportTable --explicitStart",
@@ -34,11 +34,11 @@
   "homepage": "https://github.com/aspkgy/fetch#readme",
   "devDependencies": {
     "@assemblyscript/loader": "^0.18.29",
-    "assemblyscript": "^0.19.7"
+    "assemblyscript": "^0.19.22"
   },
   "dependencies": {
-    "@assemblyscript/loader": "^0.19.7",
-    "cross-fetch": "^3.1.4"
+    "cross-fetch": "^3.1.4",
+    "@assemblyscript/loader": "^0.19.22"
   },
   "peerDependencies": {
     "undici-fetch": "^0.2.0"
