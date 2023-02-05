@@ -3,10 +3,16 @@
   "version": "2.0.0",
   "description": "Fetch API brought to AssemblyScript",
   "scripts": {
+    "build:test": "asc assembly/test.ts --target test",
+    "test:wasmtime": "wasmtime ./build/test.wasm",
+    "test:lunatic": "lunatic ./build/test.wasm",
+    "test:wasm3": "wasm3 ./build/test.wasm",
+    "prettier": "as-prettier -w .",
+    "asbuild:debug": "asc assembly/index.ts --target debug",
+    "asbuild:release": "asc assembly/index.ts --target release",
+    "asbuild": "npm run asbuild:debug && npm run asbuild:release",
     "test": "node tests",
-    "asbuild:untouched": "asc assembly/test.ts --target debug --exportRuntime --exportTable --explicitStart",
-    "asbuild:optimized": "asc assembly/test.ts --target release --exportRuntime --exportTable --explicitStart",
-    "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized"
+    "start": "npx serve ."
   },
   "repository": {
     "type": "git",
@@ -30,6 +36,19 @@
   },
   "homepage": "https://github.com/JairusSW/as-fetch#readme",
   "devDependencies": {
-    "assemblyscript": "^0.27.0"
+    "assemblyscript": "^0.27.0",
+    "assemblyscript-prettier": "^1.0.7",
+    "prettier": "^2.8.3"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./build/release.js",
+      "types": "./build/release.d.ts"
+    }
+  },
+  "dependencies": {
+    "as-option": "^0.0.2",
+    "json-as": "^0.5.20"
   }
 }
