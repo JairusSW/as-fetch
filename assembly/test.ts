@@ -2,8 +2,6 @@ import { fetch } from "./src/fetch";
 
 @external("env", "writeString")
 declare function writeString(str: string): void;
-@external("env", "readString")
-declare function readString(): string;
 
 export function main(): void {
     // @ts-ignore
