@@ -18,9 +18,13 @@ export class Request extends Body {
     public url!: string;
     public headers!: Headers;
     constructor(url: string, init: RequestInit | null = null) {
-        init?.body ? super(init.body) : super(null);
+        if (init && init.body) {
+            super(init.body);
+        } else {
+            super(null);
+        }
         this.url = url;
-        this.method = init?.method || "GET";
+        this.method = init!.method! || "GET";
         this.headers = new Headers();
         // Set headers
     }

@@ -6,7 +6,8 @@ export class Blob {
     public size!: i32;
     public type!: string;
     constructor(array: ArrayBuffer, options: BlobOptions | null = null) {
-        this.type = options?.type || "text/plain";
+        if (options) this.type = options.type!
+        else "text/plain";
         this._buffer = array;
         this.size = array.byteLength;
     }
@@ -22,7 +23,7 @@ export class Blob {
     @inline toString(): string {
         return "[object Blob]";
     }
-    @inline slice(start: i32, end: i32, contentType: string | null = null) {
+    @inline slice(start: i32, end: i32, contentType: string | null = null): Blob {
         return new Blob(this._buffer.slice(start, end), { type: contentType });
     }
 }

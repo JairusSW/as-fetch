@@ -1,4 +1,5 @@
 import { Body } from "./Body";
+import { Headers } from "./Headers";
 import { Status } from "./Status";
 
 export class ResponseInit {
