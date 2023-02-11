@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "Fetch API brought to AssemblyScript",
   "scripts": {
-    "build:test": "asc assembly/test.ts --target test --runtime stub",
+    "build:test": "asc assembly/test.ts --target test --runtime incremental",
     "test:wasmtime": "wasmtime ./build/test.wasm",
     "test:lunatic": "lunatic ./build/test.wasm",
     "test:wasm3": "wasm3 ./build/test.wasm",
@@ -46,6 +46,7 @@
     "as-option": "^0.0.2",
     "asyncify-wasm": "^1.2.1",
     "binaryen": "^111.0.0",
-    "json-as": "^0.5.20"
+    "json-as": "^0.5.20",
+    "undici": "^5.18.0"
   }
 }

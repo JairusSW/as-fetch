@@ -1,4 +1,5 @@
 import { readFileSync } from "fs";
+//import { fetch } from "undici";
 const binary = readFileSync("./build/test.wasm");
 const compiled = new WebAssembly.Module(binary);
 
@@ -39,15 +40,16 @@ const instance = new WebAssembly.Instance(compiled, {
                 memoryU32[DATA_ADDR + 4 >> 2] = 1024;
                 wasmExports.asyncify_start_unwind(DATA_ADDR);
                 paused = true;
+                fetch(url).then(async (res) => {
+                    const value = await res.text();
+                    console.log("Sending response to AssemblyScript");
+                    const length = value.length;
+                    pointer = wasmExports.__new(length << 1, 2) >>> 0;
+                    for (let i = 0; i < length; ++i) memoryU16[(pointer >>> 1) + i] = value.charCodeAt(i);
+                    wasmExports.asyncify_start_rewind(DATA_ADDR);
+                    wasmExports.main();
+                });
             }
-            fetch(url).then(async (res) => {
-                const value = await res.text();
-                const length = value.length;
-                pointer = wasmExports.__new(length << 1, 2) >>> 0;
-                for (let i = 0; i < length; ++i) memoryU16[(pointer >>> 1) + i] = value.charCodeAt(i);
-                wasmExports.asyncify_start_rewind(DATA_ADDR);
-                wasmExports.main();
-            });
             return pointer;
         },
         abort() {}

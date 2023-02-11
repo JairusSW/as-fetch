@@ -4,14 +4,14 @@ import { fetch } from "./src/fetch";
 declare function writeString(str: string): void;
 
 export function main(): void {
-    // @ts-ignore
-    const res = fetch("http://api.quotable.io/random", {
-        method: "GET",
-        mode: "no-cors",
-        headers: [],
-        body: null
-    });
+        // @ts-ignore
+        const res = fetch("http://api.quotable.io/random", {
+            method: "GET",
+            mode: "no-cors",
+            headers: [],
+            body: null
+        });
 
-    const text = res.text16();
-    writeString("Response: " + text);
+        const text = res.text16();
+        writeString("Response: " + text);
 }
