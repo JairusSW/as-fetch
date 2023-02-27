@@ -1,17 +1,20 @@
-import { fetch } from "./src/fetch";
-
 @external("env", "writeString")
 declare function writeString(str: string): void;
 
-export function main(): void {
-        // @ts-ignore
-        const res = fetch("http://api.quotable.io/random", {
-            method: "GET",
-            mode: "no-cors",
-            headers: [],
-            body: null
-        });
+import { fetch } from "./src/fetch";
 
-        const text = res.text16();
+// Make sure to add this line!
+export { responseHandler } from "./src/fetch";
+
+export function main(): void {
+    fetch("http://api.quotable.io/random", {
+        method: "GET",
+        mode: "no-cors",
+        headers: [],
+        body: null
+    }).then((response) => {
+        const text = response.text();
+        // response.text16() is faster :D
         writeString("Response: " + text);
+    });
 }

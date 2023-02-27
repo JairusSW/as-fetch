@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "Fetch API brought to AssemblyScript",
   "scripts": {
-    "build:test": "asc assembly/test.ts --target test --runtime incremental",
+    "build:test": "asc assembly/test.ts --target test",
     "test:wasmtime": "wasmtime ./build/test.wasm",
     "test:lunatic": "lunatic ./build/test.wasm",
     "test:wasm3": "wasm3 ./build/test.wasm",

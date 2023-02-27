@@ -10,12 +10,12 @@ export class ResponseInit {
 }
 
 export class Response extends Body {
-    public url!: string;
-    public status!: i32;
+    public url: string;
+    public status: i32 = 0;
     public statusText!: string;
-    public headers!: Headers;
-    public redirected!: boolean;
-    public ok!: boolean;
+    public headers: Headers;
+    public redirected: boolean = false;
+    public ok: boolean = true;
     constructor(body: ArrayBuffer | null, init: ResponseInit) {
         super(body);
         this.headers = init.headers || new Headers();
