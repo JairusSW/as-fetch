@@ -12,13 +12,12 @@ let responseHandler
 
 instantiate(compiled, {
     fetch: {
-        _fetchAsync(url, method) {
-            console.log("url: " + url);
+        _fetchAsync(url, method, callbackID) {
             fetch(url, {
                 method: "GET"
             }).then(async (res) => {
                 const value = await res.arrayBuffer();
-                responseHandler(value);
+                responseHandler(value, callbackID);
             });
         }
     }

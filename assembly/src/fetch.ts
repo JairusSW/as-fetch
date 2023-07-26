@@ -1,7 +1,7 @@
 //@external("env", "_fetchSync")
 //declare function _fetchSync(url: string): ArrayBuffer;
 @external("fetch", "_fetchAsync")
-declare function _fetchAsync(url: string, method: i32): void;
+declare function _fetchAsync(url: string, method: i32, callbackID: i32): void;
 
 import { RequestInit } from "./Request";
 import { Response, ResponseInit } from "./Response"
@@ -14,15 +14,14 @@ function fetchSync(url: string, init: RequestInit | null = null): Response {
 
 let _callback: (value: Response) => void = (value) => { };
 
-export function responseHandler(buffer: ArrayBuffer): void {
-    _callback(new Response(buffer, new ResponseInit()));
+export function responseHandler(buffer: ArrayBuffer, callbackID: i32): void {
+    call_indirect(callbackID, new Response(buffer, new ResponseInit()));
 }
 
 class Fetch {
     constructor(private url: string, private init: RequestInit | null = null) {}
     then(onfulfilled: (value: Response) => void): Fetch {
-        _callback = onfulfilled;
-        _fetchAsync(this.url, 0);
+        _fetchAsync(this.url, 0, load<i32>(changetype<usize>(onfulfilled)));
         return this;
     }
 }
