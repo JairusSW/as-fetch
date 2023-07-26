@@ -18,9 +18,6 @@ instantiate(compiled, {
                 method: "GET"
             }).then(async (res) => {
                 const value = await res.arrayBuffer();
-                //const length = value.length;
-                //const pointer = fetchImports.wasmExports.__new(length << 1, 2) >>> 0;
-                //for (let i = 0; i < length; ++i) fetchImports.memoryU16[(pointer >>> 1) + i] = value.charCodeAt(i);
                 responseHandler(value);
             });
         }
