@@ -1,7 +1,8 @@
-//@external("env", "_fetchSync")
-//declare function _fetchSync(url: string): ArrayBuffer;
-@external("fetch", "_fetchAsync")
-declare function _fetchAsync(url: string, method: i32, callbackID: i32): void;
+@external("fetch", "_fetchGET")
+declare function _fetchGET(url: string, headers: string[][], callbackID: i32): void;
+
+@external("fetch", "_fetchPOST")
+declare function _fetchPOST(url: string, headers: string[][], body: ArrayBuffer, callbackID: i32): void;
 
 import { Headers } from "./Headers";
 import { RequestInit } from "./Request";
@@ -24,7 +25,11 @@ class Fetch {
         }
     }
     then(onfulfilled: (value: Response) => void): Fetch {
-        _fetchAsync(this.url, methodToNum(this.init!.method as string), load<i32>(changetype<usize>(onfulfilled)));
+        if (this.init!.method == "GET") {
+            _fetchGET(this.url, this.init!.headers!, load<i32>(changetype<usize>(onfulfilled)));
+        } else if (this.init!.method == "POST") {
+            _fetchPOST(this.url, this.init!.headers!, this.init!.body!, load<i32>(changetype<usize>(onfulfilled)));
+        }
         return this;
     }
 }

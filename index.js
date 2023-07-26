@@ -12,9 +12,19 @@ let responseHandler
 
 instantiate(compiled, {
     fetch: {
-        _fetchAsync(url, method, callbackID) {
+        _fetchGET(url, headers, callbackID) {
             fetch(url, {
                 method: "GET"
+            }).then(async (res) => {
+                const value = await res.arrayBuffer();
+                responseHandler(value, res.status, res.redirected, callbackID);
+            });
+        },
+        _fetchPOST(url, headers, body, callbackID) {
+            fetch(url, {
+                method: "POST",
+                body: body,
+                headers: headers
             }).then(async (res) => {
                 const value = await res.arrayBuffer();
                 responseHandler(value, res.status, res.redirected, callbackID);
