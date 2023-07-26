@@ -1,7 +1,7 @@
 import { JSON } from "json-as";
 import { Blob } from "./Blob";
 
-@lazy const emptyBuffer = new ArrayBuffer(0);
+const emptyBuffer = new ArrayBuffer(0);
 
 export class Body {
     public bodyUsed: boolean = false;

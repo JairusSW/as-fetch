@@ -18,8 +18,8 @@ instantiate(compiled, {
                 method: "GET",
                 headers: headers
             }).then(async (res) => {
-                const value = await res.arrayBuffer();
-                responseHandler(value, res.status, res.redirected, callbackID);
+                const body = await res.arrayBuffer();
+                responseHandler(body, res.status, res.redirected, callbackID);
             });
         },
         _fetchPOST(url, headers, body, callbackID) {
@@ -28,15 +28,12 @@ instantiate(compiled, {
                 body: body,
                 headers: headers
             }).then(async (res) => {
-                const value = await res.arrayBuffer();
-                responseHandler(value, res.status, res.redirected, callbackID);
+                const body = await res.arrayBuffer();
+                responseHandler(body, res.status, res.redirected, callbackID);
             });
         }
     }
 }).then(exports => {
-    fetchImports.wasmExports = exports;
-    fetchImports.memoryU16 = new Uint16Array(exports.memory.buffer);
-    fetchImports.memoryU32 = new Uint32Array(exports.memory.buffer);
     responseHandler = exports.responseHandler
     exports.main();
 });
