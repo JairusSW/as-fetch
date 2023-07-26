@@ -12,6 +12,7 @@ let responseHandler
 
 instantiate(compiled, {
     fetch: {
+        // Un-ordered responses
         _fetchGET(url, headers, callbackID) {
             fetch(url, {
                 method: "GET",
