@@ -2,6 +2,8 @@
 
 **The `fetch()` API brought to AssemblyScript**
 
+# Notice: as-fetch only supports one instance of fetch at the moment
+
 ## Installation
 
 ```bash
