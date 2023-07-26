@@ -4,15 +4,19 @@ import { fetch } from "./src/fetch";
 export { responseHandler } from "./src/fetch";
 
 export function main(): void {
-    fetch("http://api.quotable.io/random", {
-        method: "GET",
-        mode: "no-cors",
-        headers: [],
-        body: null
-    }).then((response) => {
-        let text = response.text();
-        // response.text16() is faster :D
-        console.log("Status: " + response.status.toString());
-        console.log("Response: " + text);
-    });
+  fetch("http://api.quotable.io/random", {
+    method: "GET",
+    mode: "no-cors",
+    headers: [],
+    body: null,
+  }).then((response) => {
+    let text = response.text();
+    // response.text16() is faster :D
+    console.log("Ok: " + response.ok.toString());
+    console.log(
+      "Status: " + response.status.toString() + " (" + response.statusText + ")"
+    );
+    console.log("Redirected: " + response.redirected.toString());
+    console.log("Response: " + text);
+  });
 }

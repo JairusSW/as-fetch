@@ -6,13 +6,13 @@ declare function _fetchAsync(url: string, method: i32, callbackID: i32): void;
 import { Headers } from "./Headers";
 import { RequestInit } from "./Request";
 import { Response, ResponseInit } from "./Response"
-)
-export function responseHandler(body: ArrayBuffer, statusCode: i32, callbackID: i32): void {
+
+export function responseHandler(body: ArrayBuffer, statusCode: i32, redirected: boolean, callbackID: i32): void {
     call_indirect(callbackID, new Response(body, {
         status: statusCode,
         headers: new Headers(),
         url: null,
-        redirected: false
+        redirected: redirected
     }));
 }
 

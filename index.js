@@ -17,7 +17,7 @@ instantiate(compiled, {
                 method: "GET"
             }).then(async (res) => {
                 const value = await res.arrayBuffer();
-                responseHandler(value, res.status, callbackID);
+                responseHandler(value, res.status, res.redirected, callbackID);
             });
         }
     }

@@ -12,13 +12,14 @@ export class ResponseInit {
 export class Response extends Body {
   public url: string;
   public status: i32 = 0;
-  public statusText!: string;
+  public statusText: string;
   public headers: Headers;
   public redirected: boolean = false;
   public ok: boolean = true;
   constructor(body: ArrayBuffer | null, init: ResponseInit) {
     super(body);
     this.status = init.status;
+    this.statusText = new Status(init.status).toString();
     this.headers = init.headers || new Headers();
     this.url = init.url || "";
     this.redirected = init.redirected;
