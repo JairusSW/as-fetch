@@ -22,8 +22,6 @@ export class FetchImport {
     }
     set wasmExports(exp) {
         wasmExports = exp;
-        memoryU16 = new Uint16Array(exp.memory.buffer);
-        memoryU32 = new Uint32Array(exp.memory.buffer);
     }
     get wasmExports() {
         return this._exports;

@@ -1,6 +1,3 @@
-@external("env", "writeString")
-declare function writeString(str: string): void;
-
 import { fetch } from "./src/fetch";
 
 // Make sure to add this line!
@@ -13,8 +10,8 @@ export function main(): void {
         headers: [],
         body: null
     }).then((response) => {
-        const text = response.text();
+        let text = response.text();
         // response.text16() is faster :D
-        writeString("Response: " + text);
+        console.log("Response: " + text);
     });
 }

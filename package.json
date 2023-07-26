@@ -4,13 +4,8 @@
   "description": "Fetch API brought to AssemblyScript",
   "scripts": {
     "build:test": "asc assembly/test.ts --target test",
-    "test:wasmtime": "wasmtime ./build/test.wasm",
-    "test:lunatic": "lunatic ./build/test.wasm",
-    "test:wasm3": "wasm3 ./build/test.wasm",
+    "test:node": "node index",
     "prettier": "as-prettier -w .",
-    "asbuild:debug": "asc assembly/index.ts --target debug",
-    "asbuild:release": "asc assembly/index.ts --target release",
-    "asbuild": "npm run asbuild:debug && npm run asbuild:release",
     "test": "node tests",
     "start": "npx serve ."
   },

@@ -12,6 +12,6 @@
   },
   "options": {
     "transform": ["./transform"],
-    "bindings": "esm"
+    "bindings": "raw"
   }
 }
