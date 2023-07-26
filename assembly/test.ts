@@ -10,7 +10,7 @@ export function main(): void {
   fetch("http://api.quotable.io/random", {
     method: "GET",
     mode: "no-cors",
-    headers: [[""]],
+    headers: [],
     body: null,
   }).then((response) => {
     let text = response.text();
@@ -25,7 +25,9 @@ export function main(): void {
   fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
     mode: "no-cors",
-    headers: [["Content-Type", "application/x-www-form-urlencoded"]],
+    headers: [
+      ["Content-Type", "application/x-www-form-urlencoded"]
+    ],
     body: String.UTF8.encode(
       `grant_type=client_credentials&client_id=${client_id}&client_secret=${client_secret}`
     ),

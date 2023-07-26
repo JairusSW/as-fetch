@@ -14,7 +14,8 @@ instantiate(compiled, {
     fetch: {
         _fetchGET(url, headers, callbackID) {
             fetch(url, {
-                method: "GET"
+                method: "GET",
+                headers: headers
             }).then(async (res) => {
                 const value = await res.arrayBuffer();
                 responseHandler(value, res.status, res.redirected, callbackID);
