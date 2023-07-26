@@ -1,5 +1,5 @@
 import { readFileSync } from "fs";
-import { FetchImport } from "./imports.esm.js";
+import { FetchImport } from "./bindings.esm.js";
 
 import { instantiate } from "./build/test.js"
 

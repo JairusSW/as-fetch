@@ -5,36 +5,28 @@ declare function _fetchAsync(url: string, method: i32, callbackID: i32): void;
 
 import { RequestInit } from "./Request";
 import { Response, ResponseInit } from "./Response"
-/*
-const requestBuffer = new ArrayBuffer(2);
-function fetchSync(url: string, init: RequestInit | null = null): Response {
-    const buffer = _fetchSync(url);
-    return new Response(buffer, new ResponseInit());
-}*/
-
-let _callback: (value: Response) => void = (value) => { };
 
 export function responseHandler(buffer: ArrayBuffer, callbackID: i32): void {
     call_indirect(callbackID, new Response(buffer, new ResponseInit()));
 }
 
 class Fetch {
-    constructor(private url: string, private init: RequestInit | null = null) {}
+    constructor(private url: string, private init: RequestInit | null = null) {
+        if (!this.init) {
+            this.init = new RequestInit();
+            this.init!.method = "GET";
+        }
+    }
     then(onfulfilled: (value: Response) => void): Fetch {
-        _fetchAsync(this.url, 0, load<i32>(changetype<usize>(onfulfilled)));
+        _fetchAsync(this.url, methodToNum(this.init!.method as string), load<i32>(changetype<usize>(onfulfilled)));
         return this;
     }
 }
 
 function methodToNum(method: string): i32 {
-    switch (method) {
-        case "GET": {
-            return 0;
-        }
-        default: {
-            return 0;
-        }
-    }
+    if (method == "GET") return 0;
+    else if (method == "POST") return 1;
+    return 0;
 }
 
 export function fetch(url: string, init: RequestInit | null = null): Fetch {
