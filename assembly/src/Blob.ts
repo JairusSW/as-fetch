@@ -2,14 +2,12 @@ class BlobOptions {
     type!: string | null;
 }
 export class Blob {
-    private _buffer!: ArrayBuffer;
     public size!: i32;
     public type!: string;
-    constructor(array: ArrayBuffer, options: BlobOptions | null = null) {
+    constructor(private _buffer: ArrayBuffer, options: BlobOptions | null = null) {
         if (options) this.type = options.type!
         else "text/plain";
-        this._buffer = array;
-        this.size = array.byteLength;
+        this.size = this._buffer.byteLength;
     }
     @inline text(): string {
         return String.UTF8.decode(this._buffer);

@@ -11,7 +11,6 @@ export function main(): void {
     body: null,
   }).then((response) => {
     let text = response.text();
-    // response.text16() is faster :D
     console.log("Ok: " + response.ok.toString());
     console.log(
       "Status: " + response.status.toString() + " (" + response.statusText + ")"

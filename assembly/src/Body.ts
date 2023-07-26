@@ -4,11 +4,8 @@ import { Blob } from "./Blob";
 @lazy const emptyBuffer = new ArrayBuffer(0);
 
 export class Body {
-    private _buffer: ArrayBuffer | null;
     public bodyUsed: boolean = false;
-    constructor(body: ArrayBuffer | null = null) {
-        this._buffer = body;
-    }
+    constructor(private _buffer: ArrayBuffer | null = null) {}
     @inline arrayBuffer(): ArrayBuffer {
         this.bodyUsed = true;
         return this._buffer || emptyBuffer;
