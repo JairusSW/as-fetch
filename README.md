@@ -1,8 +1,6 @@
 # Fetch
 
-**The `fetch()` API brought to AssemblyScript**
-
-# Notice: as-fetch only supports one instance of fetch at the moment
+A fully asynchronous and performant `fetch` implementation for AssemblyScript that aims to bring the full `fetch` api along.
 
 ## Installation
 

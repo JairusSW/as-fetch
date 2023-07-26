@@ -12,6 +12,16 @@ export function main(): void {
     }).then((response) => {
         let text = response.text();
         // response.text16() is faster :D
-        console.log("Response: " + text);
+        console.log("Response One: " + text);
+    });
+    fetch("http://api.quotable.io/random", {
+      method: "GET",
+      mode: "no-cors",
+      headers: [],
+      body: null,
+    }).then((response) => {
+      let text = response.text();
+      // response.text16() is faster :D
+      console.log("Response Two: " + text);
     });
 }
