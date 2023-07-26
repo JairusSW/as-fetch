@@ -3,11 +3,17 @@
 @external("fetch", "_fetchAsync")
 declare function _fetchAsync(url: string, method: i32, callbackID: i32): void;
 
+import { Headers } from "./Headers";
 import { RequestInit } from "./Request";
 import { Response, ResponseInit } from "./Response"
-
-export function responseHandler(buffer: ArrayBuffer, callbackID: i32): void {
-    call_indirect(callbackID, new Response(buffer, new ResponseInit()));
+)
+export function responseHandler(body: ArrayBuffer, statusCode: i32, callbackID: i32): void {
+    call_indirect(callbackID, new Response(body, {
+        status: statusCode,
+        headers: new Headers(),
+        url: null,
+        redirected: false
+    }));
 }
 
 class Fetch {
