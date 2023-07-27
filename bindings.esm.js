@@ -1,22 +1,37 @@
-export class FetchImport {
-    constructor() {
-        this.wasmImports = {
+let _responseHandler;
+
+export class FetchHandler {
+    constructor(fetchImpl) {
+        if (!fetchImpl) {
+            if (!fetch) throw new Error("No implementation of fetch provided and no implementation was found!");
+            fetchImpl = fetch;
+        }
+        this.imports = {
             fetch: {
-                _fetchAsync(url, method, callbackID) {
-                    fetch(url, {
-                        method: "GET"
+                _fetchGET(url, headers, callbackID) {
+                    fetchImpl(url, {
+                        method: "GET",
+                        headers: headers
                     }).then(async (res) => {
-                        const value = await res.arrayBuffer();
-                        this._exports.responseHandler(value, callbackID);
+                        const body = await res.arrayBuffer();
+                        _responseHandler(body, res.status, res.redirected, callbackID);
+                    });
+                },
+                _fetchPOST(url, headers, body, callbackID) {
+                    fetchImpl(url, {
+                        method: "POST",
+                        body: body,
+                        headers: headers
+                    }).then(async (res) => {
+                        const body = await res.arrayBuffer();
+                        _responseHandler(body, res.status, res.redirected, callbackID);
                     });
                 }
             }
         }
     }
-    set wasmExports(exp) {
-        this._exports = exp;
-    }
-    get wasmExports() {
-        return this._exports;
+    init(exp) {
+        if (!exp["responseHandler"]) throw new Error("responseHandler was not exported from entry file. Add export { responseHandler } from \"as-fetch\" to your entry file.");
+        _responseHandler = exp.responseHandler;
     }
 }

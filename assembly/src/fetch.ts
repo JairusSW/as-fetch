@@ -6,7 +6,7 @@ declare function _fetchPOST(url: string, headers: string[][], body: ArrayBuffer,
 
 import { Headers } from "./Headers";
 import { RequestInit } from "./Request";
-import { Response, ResponseInit } from "./Response"
+import { Response } from "./Response"
 
 export function responseHandler(body: ArrayBuffer, statusCode: i32, redirected: boolean, callbackID: i32): void {
     call_indirect(callbackID, new Response(body, {

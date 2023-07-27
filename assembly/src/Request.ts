@@ -4,6 +4,7 @@ import { Headers } from "./Headers";
 export class RequestInit {
     method: string | null = null;
     headers: Array<Array<string>> | null = null;
+    //subHeaders: Array<string> | null = null;
     body: ArrayBuffer | null = null;
     mode: string | null = null;
     // TODO torch2424 (6/9/20): Credentials
@@ -26,6 +27,5 @@ export class Request extends Body {
         this.url = url;
         this.method = init!.method! || "GET";
         this.headers = new Headers();
-        // Set headers
     }
 }
