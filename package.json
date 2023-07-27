@@ -2,12 +2,11 @@
   "name": "as-fetch",
   "version": "2.0.0",
   "description": "Fetch API brought to AssemblyScript",
+  "main": "index.js",
   "scripts": {
     "build:test": "asc assembly/test.ts --target test",
-    "test:node": "node index",
-    "prettier": "as-prettier -w .",
-    "test": "node tests",
-    "start": "npx serve ."
+    "test:node": "node test",
+    "prettier": "as-prettier -w ."
   },
   "repository": {
     "type": "git",
