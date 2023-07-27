@@ -31,6 +31,13 @@ instantiate(compiled, { ...Fetch.imports }).then(exports => {
 });
 ```
 
+**ESM Bindings**
+```js
+import { main, responseHandler } from "./build/test.js"
+// Fetch API must exist on the host
+fetch.setResponseHandler = responseHandler;
+main();
+```
 ## Usage
 
 ```js

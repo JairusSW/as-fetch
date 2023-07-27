@@ -11,6 +11,7 @@ export class FetchHandler {
                 _fetchGET(url, headers, callbackID) {
                     fetchImpl(url, {
                         method: "GET",
+                        mode: modeToString(mode),
                         headers: headers
                     }).then(async (res) => {
                         const body = await res.arrayBuffer();
@@ -20,6 +21,7 @@ export class FetchHandler {
                 _fetchPOST(url, headers, body, callbackID) {
                     fetchImpl(url, {
                         method: "POST",
+                        mode: modeToString(mode),
                         body: body,
                         headers: headers
                     }).then(async (res) => {
@@ -34,6 +36,14 @@ export class FetchHandler {
         if (!exp["responseHandler"]) throw new Error("responseHandler was not exported from entry file. Add export { responseHandler } from \"as-fetch\" to your entry file.");
         _responseHandler = exp.responseHandler;
     }
+}
+
+function modeToString(mode) {
+    if (mode == 1) return "cors";
+    if (mode == 2) return "no-cors";
+    if (mode == 3) return "same-origin";
+    if (mode == 4) return "navigate";
+    return null;
 }
 
 module.exports = FetchHandler;

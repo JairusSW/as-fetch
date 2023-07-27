@@ -3,10 +3,11 @@ import { fetch } from "./src/fetch";
 // Make sure to add this line!
 export { responseHandler } from "./src/fetch";
 
-const client_id = "";
-const client_secret = "";
+const client_id = "e16ba747847f4705b3f162645e6d6f14";
+const client_secret = "648b8f2568924b86b5ad18925413951b";
 
 export function main(): void {
+  console.log(f32(reinterpret<f64>(0x400921FB54442D18)).toString())
   fetch("http://api.quotable.io/random", {
     method: "GET",
     mode: "no-cors",

@@ -1,10 +1,11 @@
 @external("fetch", "_fetchGET")
-declare function _fetchGET(url: string, headers: string[][], callbackID: i32): void;
+declare function _fetchGET(url: string, mode: i32, headers: string[][], callbackID: i32): void;
 
 @external("fetch", "_fetchPOST")
-declare function _fetchPOST(url: string, headers: string[][], body: ArrayBuffer, callbackID: i32): void;
+declare function _fetchPOST(url: string, mode: i32, headers: string[][], body: ArrayBuffer, callbackID: i32): void;
 
 import { Headers } from "./Headers";
+import { Modes } from "./Mode";
 import { RequestInit } from "./Request";
 import { Response } from "./Response"
 
@@ -26,9 +27,9 @@ class Fetch {
     }
     then(onfulfilled: (value: Response) => void): Fetch {
         if (this.init!.method == "GET") {
-            _fetchGET(this.url, this.init!.headers!, load<i32>(changetype<usize>(onfulfilled)));
+            _fetchGET(this.url, modeToNum(this.init!.mode), this.init!.headers!, load<i32>(changetype<usize>(onfulfilled)));
         } else if (this.init!.method == "POST") {
-            _fetchPOST(this.url, this.init!.headers!, this.init!.body!, load<i32>(changetype<usize>(onfulfilled)));
+            _fetchPOST(this.url, modeToNum(this.init!.mode), this.init!.headers!, this.init!.body!, load<i32>(changetype<usize>(onfulfilled)));
         }
         return this;
     }
@@ -37,6 +38,15 @@ class Fetch {
 function methodToNum(method: string): i32 {
     if (method == "GET") return 0;
     else if (method == "POST") return 1;
+    return 0;
+}
+
+function modeToNum(mode: string | null): i32 {
+    if (mode == "cors") return Modes.cors;
+    if (mode == "no-cors") return Modes.no_cors;
+    if (mode == "same-origin") return Modes.same_origin;
+    if (mode == "navigate") return Modes.navigate
+    // 0 is null
     return 0;
 }
 

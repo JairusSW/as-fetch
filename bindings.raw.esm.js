@@ -8,20 +8,22 @@ export class FetchHandler {
         }
         this.imports = {
             fetch: {
-                _fetchGET(url, headers, callbackID) {
+                _fetchGET(url, mode, headers, callbackID) {
                     fetchImpl(url, {
                         method: "GET",
+                        mode: modeToString(mode),
                         headers: headers
                     }).then(async (res) => {
                         const body = await res.arrayBuffer();
                         _responseHandler(body, res.status, res.redirected, callbackID);
                     });
                 },
-                _fetchPOST(url, headers, body, callbackID) {
+                _fetchPOST(url, mode, headers, body, callbackID) {
                     fetchImpl(url, {
                         method: "POST",
+                        mode: modeToString(mode),
                         body: body,
-                        headers: headers
+                        headers: headers,
                     }).then(async (res) => {
                         const body = await res.arrayBuffer();
                         _responseHandler(body, res.status, res.redirected, callbackID);
@@ -34,4 +36,12 @@ export class FetchHandler {
         if (!exp["responseHandler"]) throw new Error("responseHandler was not exported from entry file. Add export { responseHandler } from \"as-fetch\" to your entry file.");
         _responseHandler = exp.responseHandler;
     }
+}
+
+function modeToString(mode) {
+    if (mode == 1) return "cors";
+    if (mode == 2) return "no-cors";
+    if (mode == 3) return "same-origin";
+    if (mode == 4) return "navigate";
+    return null;
 }
