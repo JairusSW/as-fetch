@@ -1,6 +1,6 @@
 let _responseHandler;
 
-export class FetchHandler {
+class FetchHandler {
     constructor(fetchImpl) {
         if (!fetchImpl) {
             if (!fetch) throw new Error("No implementation of fetch provided and no implementation was found!");
