@@ -17,7 +17,7 @@ Add the fetch imports to your instantiation file.
 import { readFileSync } from "fs";
 
 import { instantiate } from "./build/test.js"
-import { FetchHandler } from "./bindings.esm.js";
+import { FetchHandler } from "./bindings.raw.esm.js";
 
 const binary = readFileSync("./build/test.wasm");
 const compiled = new WebAssembly.Module(binary);
@@ -41,10 +41,10 @@ main();
 ## Usage
 
 ```js
-import { fetch } from "as-fetch";
+import { fetch } from "as-fetch/assembly";
 
 // Make sure to add this line!
-export { responseHandler } from "as-fetch";
+export { responseHandler } from "as-fetch/assembly";
 
 fetch("http://api.quotable.io/random", {
   method: "GET",
