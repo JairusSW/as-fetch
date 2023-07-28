@@ -8,7 +8,7 @@ export class FetchHandler {
         }
         this.imports = {
             "as-fetch": {
-                _fetchGET(url, headers, callbackID) {
+                _fetchGET(url, mode, headers, callbackID) {
                     fetchImpl(url, {
                         method: "GET",
                         mode: modeToString(mode),
@@ -18,7 +18,7 @@ export class FetchHandler {
                         _responseHandler(body, res.status, res.redirected, callbackID);
                     });
                 },
-                _fetchPOST(url, headers, body, callbackID) {
+                _fetchPOST(url, mode, headers, body, callbackID) {
                     fetchImpl(url, {
                         method: "POST",
                         mode: modeToString(mode),
