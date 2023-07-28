@@ -1,7 +1,7 @@
-@external("fetch", "_fetchGET")
+@external("as-fetch", "_fetchGET")
 declare function _fetchGET(url: string, mode: i32, headers: string[][], callbackID: i32): void;
 
-@external("fetch", "_fetchPOST")
+@external("as-fetch", "_fetchPOST")
 declare function _fetchPOST(url: string, mode: i32, headers: string[][], body: ArrayBuffer, callbackID: i32): void;
 
 import { Headers } from "./Headers";

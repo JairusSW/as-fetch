@@ -7,7 +7,7 @@ export class FetchHandler {
             fetchImpl = fetch;
         }
         this.imports = {
-            fetch: {
+            "as-fetch": {
                 _fetchGET(url, headers, callbackID) {
                     fetchImpl(url, {
                         method: "GET",
