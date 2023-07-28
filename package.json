@@ -1,6 +1,6 @@
 {
   "name": "as-fetch",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Fetch API brought to AssemblyScript",
   "main": "index.js",
   "scripts": {
