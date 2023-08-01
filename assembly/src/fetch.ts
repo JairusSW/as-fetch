@@ -4,10 +4,16 @@ declare function _fetchGET(url: string, mode: i32, headers: string[][], callback
 @external("as-fetch", "_fetchPOST")
 declare function _fetchPOST(url: string, mode: i32, headers: string[][], body: ArrayBuffer, callbackID: i32): void;
 
+@external("as-fetch", "_fetchGETSync")
+declare function _fetchGETSync(url: string, mode: i32, headers: string[][]): usize;
+
+@external("as-fetch", "_fetchPOSTSync")
+declare function _fetchPOSTSync(url: string, mode: i32, headers: string[][], body: ArrayBuffer): usize;
+
 import { Headers } from "./Headers";
 import { Modes } from "./Mode";
 import { RequestInit } from "./Request";
-import { Response } from "./Response"
+import { Response, ResponseInit } from "./Response";
 
 export function responseHandler(body: ArrayBuffer, statusCode: i32, redirected: boolean, callbackID: i32): void {
     call_indirect(callbackID, new Response(body, {
@@ -18,11 +24,12 @@ export function responseHandler(body: ArrayBuffer, statusCode: i32, redirected: 
     }));
 }
 
-class Fetch {
+export class Fetch {
     constructor(private url: string, private init: RequestInit | null = null) {
         if (!this.init) {
             this.init = new RequestInit();
             this.init!.method = "GET";
+            init!.mode = "cors";
         }
     }
     then(onfulfilled: (value: Response) => void): Fetch {
@@ -45,13 +52,20 @@ function modeToNum(mode: string | null): i32 {
     if (mode == "cors") return Modes.cors;
     if (mode == "no-cors") return Modes.no_cors;
     if (mode == "same-origin") return Modes.same_origin;
-    if (mode == "navigate") return Modes.navigate
-    // 0 is null
-    return 0;
+    if (mode == "navigate") return Modes.navigate;
+    // Default to cors
+    return 1;
 }
 
 export function fetch(url: string, init: RequestInit | null = null): Fetch {
     return new Fetch(url, init);
 }
 
-// [method, mode, length, headers, length, body]
+export function fetchSync(url: string, init: RequestInit | null = null): Response {
+    if (!init) init = new RequestInit();
+    if (init.method === "GET") {
+        return new Response(changetype<ArrayBuffer>(_fetchGETSync(url, modeToNum(init.mode), init.headers || [])), new ResponseInit());
+    } else {
+        return new Response(changetype<ArrayBuffer>(_fetchPOSTSync(url, modeToNum(init.mode), init.headers || [], init.body!)), new ResponseInit());
+    }
+}
