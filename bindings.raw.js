@@ -8,7 +8,7 @@ let MAIN_FUNCTION;
 
 // Asyncify's call frame is 8 bytes long. It has an 8 byte header and an 8 byte layer to handle freezing, unfreezing, and statuses.
 // Two i32s.
-class FetchHandler {
+export class FetchHandler {
     constructor(fetchImpl) {
         if (!fetchImpl) {
             if (!fetch) throw new Error("No implementation of fetch provided and no implementation was found!");
@@ -112,5 +112,3 @@ function modeToString(mode) {
     if (mode == 4) return "navigate";
     return null;
 }
-
-module.exports = FetchHandler;
