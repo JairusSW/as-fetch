@@ -1,3 +1,4 @@
+import { fetchSync } from "../sync";
 import { fetch } from "./src/fetch";
 
 // Make sure to add this line!
@@ -7,6 +8,13 @@ const client_id = "";
 const client_secret = "";
 
 export function main(): void {
+  console.log("fetchSync: " + fetchSync("https://random-data-api.com/api/users/random_user", {
+    method: "GET",
+    mode: "no-cors",
+    headers: [],
+    body: null,
+  }).text());
+  /*
   fetch("http://api.quotable.io/random", {
     method: "GET",
     mode: "no-cors",
@@ -39,5 +47,5 @@ export function main(): void {
     );
     console.log("Redirected: " + response.redirected.toString());
     console.log("Response: " + text);
-  });
+  });*/
 }

@@ -2,7 +2,7 @@ import { Body } from "./Body";
 import { Headers } from "./Headers";
 
 export class RequestInit {
-    method: string | null = null;
+    method: string | null = "GET";
     headers: Array<Array<string>> | null = null;
     //subHeaders: Array<string> | null = null;
     body: ArrayBuffer | null = null;
