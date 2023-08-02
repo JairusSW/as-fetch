@@ -47,7 +47,7 @@ export function _fetchPOSTSync(url, mode, headers, body) {
     } else if (currentState === 0) {
         //console.log("asyncify_start_unwind() [pause wasm]");
         EXPORTS.asyncify_start_unwind(ASYNCIFY_PTR);
-        fetchImpl(url, {
+        fetch(url, {
             method: "POST",
             mode: modeToString(mode),
             headers: headers,
@@ -57,7 +57,7 @@ export function _fetchPOSTSync(url, mode, headers, body) {
             EXPORTS.asyncify_stop_unwind();
             const value = await res.arrayBuffer();
             _fetchPOSTSyncPtr = EXPORTS.__new(value.byteLength, 1);
-            new Uint8Array(EXPORTS.memory.buffer).set(new Uint8Array(value), _fetchGETSyncPtr);
+            new Uint8Array(EXPORTS.memory.buffer).set(new Uint8Array(value), _fetchPOSTSyncPtr);
             //console.log("asyncify_start_rewind() [resuming wasm]");
             EXPORTS.asyncify_start_rewind(ASYNCIFY_PTR);
             fetch.setMainFunction();
@@ -74,7 +74,7 @@ export function _fetchGETSync(url, mode, headers) {
     } else if (currentState === 0) {
         //console.log("asyncify_start_unwind() [pause wasm]");
         EXPORTS.asyncify_start_unwind(ASYNCIFY_PTR);
-        fetchImpl(url, {
+        fetch(url, {
             method: "GET",
             mode: modeToString(mode),
             headers: headers

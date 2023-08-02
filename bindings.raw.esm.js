@@ -42,7 +42,7 @@ export class FetchHandler {
                             EXPORTS.asyncify_stop_unwind();
                             const value = await res.arrayBuffer();
                             _fetchPOSTSyncPtr = EXPORTS.__new(value.byteLength, 1);
-                            new Uint8Array(EXPORTS.memory.buffer).set(new Uint8Array(value), _fetchGETSyncPtr);
+                            new Uint8Array(EXPORTS.memory.buffer).set(new Uint8Array(value), _fetchPOSTSyncPtr);
                             //console.log("asyncify_start_rewind() [resuming wasm]");
                             EXPORTS.asyncify_start_rewind(ASYNCIFY_PTR);
                             MAIN_FUNCTION();

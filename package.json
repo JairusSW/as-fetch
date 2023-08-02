@@ -1,10 +1,10 @@
 {
   "name": "as-fetch",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Fetch API brought to AssemblyScript",
   "main": "index.js",
   "scripts": {
-    "build:test": "asc assembly/test.ts --target test",
+    "build:test": "asc assembly/test.ts --target test --exportRuntime",
     "test:node": "node test",
     "prettier": "as-prettier -w ."
   },
