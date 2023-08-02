@@ -7,18 +7,19 @@ let ASYNCIFY_MEM;
 let EXPORTS;
 
 export function _fetchGET(url, mode, headers, callbackID) {
+    if (!fetch["setResponseHandler"]) throw new Error("responseHandler was not exported from entry file. Add export { responseHandler } from \"as-fetch\" to your entry file. Make sure to use fetch.setResponseHandler = responseHandler");
     fetch(url, {
         method: "GET",
         mode: modeToString(mode),
         headers: headers
     }).then(async (res) => {
         const body = await res.arrayBuffer();
-        if (!fetch.setResponseHandler) throw new Error("responseHandler was not exported from entry file. Add export { responseHandler } from \"as-fetch\" to your entry file.");
         fetch.setResponseHandler(body, res.status, res.redirected, callbackID);
     });
 }
 
 export function _fetchPOST(url, mode, headers, body, callbackID) {
+    if (!fetch["setResponseHandler"]) throw new Error("responseHandler was not exported from entry file. Add export { responseHandler } from \"as-fetch\" to your entry file. Make sure to use fetch.setResponseHandler = responseHandler");
     fetch(url, {
         method: "POST",
         mode: modeToString(mode),
@@ -26,7 +27,6 @@ export function _fetchPOST(url, mode, headers, body, callbackID) {
         headers: headers
     }).then(async (res) => {
         const body = await res.arrayBuffer();
-        if (!fetch.setResponseHandler) throw new Error("responseHandler was not exported from entry file. Add export { responseHandler } from \"as-fetch\" to your entry file.");
         fetch.setResponseHandler(body, res.status, res.redirected, callbackID);
     });
 }

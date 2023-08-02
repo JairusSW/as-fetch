@@ -1,11 +1,4 @@
 import { fetchSync } from "../sync";
-import { fetch } from "./src/fetch";
-
-// Make sure to add this line!
-export { responseHandler } from "./src/fetch";
-
-const client_id = "";
-const client_secret = "";
 
 export function main(): void {
   console.log("fetchSync: " + fetchSync("https://random-data-api.com/api/users/random_user", {
