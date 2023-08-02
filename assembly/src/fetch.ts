@@ -4,16 +4,10 @@ declare function _fetchGET(url: string, mode: i32, headers: string[][], callback
 @external("as-fetch", "_fetchPOST")
 declare function _fetchPOST(url: string, mode: i32, headers: string[][], body: ArrayBuffer, callbackID: i32): void;
 
-@external("as-fetch", "_fetchGETSync")
-declare function _fetchGETSync(url: string, mode: i32, headers: string[][]): usize;
-
-@external("as-fetch", "_fetchPOSTSync")
-declare function _fetchPOSTSync(url: string, mode: i32, headers: string[][], body: ArrayBuffer): usize;
-
 import { Headers } from "./Headers";
 import { Modes } from "./Mode";
 import { RequestInit } from "./Request";
-import { Response, ResponseInit } from "./Response";
+import { Response } from "./Response";
 
 export function responseHandler(body: ArrayBuffer, statusCode: i32, redirected: boolean, callbackID: i32): void {
     call_indirect(callbackID, new Response(body, {
@@ -42,12 +36,6 @@ export class Fetch {
     }
 }
 
-function methodToNum(method: string): i32 {
-    if (method == "GET") return 0;
-    else if (method == "POST") return 1;
-    return 0;
-}
-
 function modeToNum(mode: string | null): i32 {
     if (mode == "cors") return Modes.cors;
     if (mode == "no-cors") return Modes.no_cors;
@@ -59,13 +47,4 @@ function modeToNum(mode: string | null): i32 {
 
 export function fetch(url: string, init: RequestInit | null = null): Fetch {
     return new Fetch(url, init);
-}
-
-export function fetchSync(url: string, init: RequestInit | null = null): Response {
-    if (!init) init = new RequestInit();
-    if (init.method === "GET") {
-        return new Response(changetype<ArrayBuffer>(_fetchGETSync(url, modeToNum(init.mode), init.headers || [])), new ResponseInit());
-    } else {
-        return new Response(changetype<ArrayBuffer>(_fetchPOSTSync(url, modeToNum(init.mode), init.headers || [], init.body!)), new ResponseInit());
-    }
 }

@@ -2,14 +2,12 @@ let _fetchGETSyncPtr = 0;
 let _fetchPOSTSyncPtr = 0;
 
 let ASYNCIFY_PTR = 16;
-let ASYNCIFY_PAUSED = false;
 let ASYNCIFY_MEM;
 let EXPORTS;
 let MAIN_FUNCTION;
-let stack_pointer;
 
-// 1008 bytes required
-// 8 byte header
+// Asyncify's call frame is 8 bytes long. It has an 8 byte header and an 8 byte layer to handle freezing, unfreezing, and statuses.
+// Two i32s.
 export class FetchHandler {
     constructor(fetchImpl) {
         if (!fetchImpl) {
@@ -18,61 +16,62 @@ export class FetchHandler {
         }
         this.imports = {
             "as-fetch": {
-                _initAsyncify(ptr, stack_ptr) {
-                    stack_pointer = stack_ptr;
-                    console.log("Initialized Asyncify i/o at " + ptr);
-                    console.log("Stack pointer: " + stack_pointer);
-                    new Int32Array(EXPORTS.memory.buffer, ASYNCIFY_PTR + 8).set([ASYNCIFY_PTR, stack_pointer]);
+                _initAsyncify(frame_ptr, stack_ptr) {
+                    ASYNCIFY_PTR = frame_ptr;
+                    ASYNCIFY_MEM[ASYNCIFY_PTR >> 2] = ASYNCIFY_PTR + 8;
+                    // I don't know if I need to reserve all this memory...
+                    ASYNCIFY_MEM[ASYNCIFY_PTR + 4 >> 2] = stack_ptr;
                 },
-                _fetchGETSync(url, mode, headers) {
+                _fetchPOSTSync(url, mode, headers, body) {
                     const currentState = EXPORTS.asyncify_get_state();
                     if (currentState === 2) {
+                        //console.log("asyncify_stop_rewind() [resume wasm]");
                         EXPORTS.asyncify_stop_rewind();
                         return _fetchPOSTSyncPtr;
                     } else if (currentState === 0) {
+                        //console.log("asyncify_start_unwind() [pause wasm]");
+                        EXPORTS.asyncify_start_unwind(ASYNCIFY_PTR);
                         fetchImpl(url, {
                             method: "POST",
                             mode: modeToString(mode),
-                            headers: headers
+                            headers: headers,
+                            body: body
                         }).then(async (res) => {
+                            //console.log("asyncify_stop_unwind() [unpause wasm]");
+                            EXPORTS.asyncify_stop_unwind();
                             const value = await res.arrayBuffer();
-                            // @ts-ignore
                             _fetchPOSTSyncPtr = EXPORTS.__new(value.byteLength, 1);
-                            new Uint8Array(EXPORTS.memory.buffer).set(new Uint8Array(value), _fetchPOSTSyncPtr);
-                            // @ts-ignore
-                            EXPORTS.asyncify_start_unwind(ASYNCIFY_PTR);
+                            new Uint8Array(EXPORTS.memory.buffer).set(new Uint8Array(value), _fetchGETSyncPtr);
+                            //console.log("asyncify_start_rewind() [resuming wasm]");
+                            EXPORTS.asyncify_start_rewind(ASYNCIFY_PTR);
                             MAIN_FUNCTION();
                         });
                     }
                 },
                 _fetchGETSync(url, mode, headers) {
-                    if (ASYNCIFY_PAUSED) {
-                        // @ts-ignore
+                    const currentState = EXPORTS.asyncify_get_state();
+                    if (currentState === 2) {
+                        //console.log("asyncify_stop_rewind() [resume wasm]");
                         EXPORTS.asyncify_stop_rewind();
-                        ASYNCIFY_PAUSED = false;
                         return _fetchGETSyncPtr;
-                    } else {
-                        ASYNCIFY_MEM[ASYNCIFY_PTR >> 2] = ASYNCIFY_PTR + 8;
-                        ASYNCIFY_MEM[ASYNCIFY_PTR + 4 >> 2] = 1024;
-                        // @ts-ignore
+                    } else if (currentState === 0) {
+                        //console.log("asyncify_start_unwind() [pause wasm]");
                         EXPORTS.asyncify_start_unwind(ASYNCIFY_PTR);
-                        ASYNCIFY_PAUSED = true;
+                        fetchImpl(url, {
+                            method: "GET",
+                            mode: modeToString(mode),
+                            headers: headers
+                        }).then(async (res) => {
+                            //console.log("asyncify_stop_unwind() [unpause wasm]");
+                            EXPORTS.asyncify_stop_unwind();
+                            const value = await res.arrayBuffer();
+                            _fetchGETSyncPtr = EXPORTS.__new(value.byteLength, 1);
+                            new Uint8Array(EXPORTS.memory.buffer).set(new Uint8Array(value), _fetchGETSyncPtr);
+                            //console.log("asyncify_start_rewind() [resuming wasm]");
+                            EXPORTS.asyncify_start_rewind(ASYNCIFY_PTR);
+                            MAIN_FUNCTION();
+                        });
                     }
-                    fetchImpl(url, {
-                        method: "GET",
-                        mode: modeToString(mode),
-                        headers: headers
-                    }).then(async (res) => {
-                        const value = await res.arrayBuffer();
-                        // @ts-ignore
-                        _fetchGETSyncPtr = EXPORTS.__new(value.byteLength, 1);
-                        new Uint8Array(EXPORTS.memory.buffer).set(new Uint8Array(value), _fetchGETSyncPtr);
-                        // @ts-ignore
-                        EXPORTS.asyncify_start_rewind(ASYNCIFY_PTR);
-                        // SET THIS TO YOUR START FUNCTION
-                        MAIN_FUNCTION();
-                    });
-                    return _fetchGETSyncPtr;
                 },
                 _fetchGET(url, mode, headers, callbackID) {
                     fetchImpl(url, {
