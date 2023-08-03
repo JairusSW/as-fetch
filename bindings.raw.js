@@ -17,6 +17,7 @@ export class FetchHandler {
         this.imports = {
             "as-fetch": {
                 _initAsyncify(frame_ptr, stack_ptr) {
+                    if (!EXPORTS["asyncify_get_state"]) throw new Error("Asyncify not enabled. Did you enable the transform?");
                     ASYNCIFY_PTR = frame_ptr;
                     ASYNCIFY_MEM[ASYNCIFY_PTR >> 2] = ASYNCIFY_PTR + 8;
                     // I don't know if I need to reserve all this memory...
@@ -41,7 +42,7 @@ export class FetchHandler {
                             EXPORTS.asyncify_stop_unwind();
                             const value = await res.arrayBuffer();
                             _fetchPOSTSyncPtr = EXPORTS.__new(value.byteLength, 1);
-                            new Uint8Array(EXPORTS.memory.buffer).set(new Uint8Array(value), _fetchGETSyncPtr);
+                            new Uint8Array(EXPORTS.memory.buffer).set(new Uint8Array(value), _fetchPOSTSyncPtr);
                             //console.log("asyncify_start_rewind() [resuming wasm]");
                             EXPORTS.asyncify_start_rewind(ASYNCIFY_PTR);
                             MAIN_FUNCTION();
@@ -74,6 +75,7 @@ export class FetchHandler {
                     }
                 },
                 _fetchGET(url, mode, headers, callbackID) {
+                    if (!EXPORTS["responseHandler"]) throw new Error("responseHandler was not exported from entry file. Add export { responseHandler } from \"as-fetch\" to your entry file.");
                     fetchImpl(url, {
                         method: "GET",
                         mode: modeToString(mode),
@@ -84,6 +86,7 @@ export class FetchHandler {
                     });
                 },
                 _fetchPOST(url, mode, headers, body, callbackID) {
+                    if (!EXPORTS["responseHandler"]) throw new Error("responseHandler was not exported from entry file. Add export { responseHandler } from \"as-fetch\" to your entry file.");
                     fetchImpl(url, {
                         method: "POST",
                         mode: modeToString(mode),
@@ -98,7 +101,6 @@ export class FetchHandler {
         }
     }
     init(exp, entry) {
-        if (!exp["responseHandler"]) throw new Error("responseHandler was not exported from entry file. Add export { responseHandler } from \"as-fetch\" to your entry file.");
         EXPORTS = exp;
         MAIN_FUNCTION = entry;
         ASYNCIFY_MEM = new Uint32Array(exp.memory.buffer);
