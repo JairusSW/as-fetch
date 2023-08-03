@@ -1,6 +1,6 @@
 {
   "name": "as-fetch",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "Fetch API brought to AssemblyScript",
   "main": "index.js",
   "scripts": {
@@ -31,7 +31,6 @@
   "homepage": "https://github.com/JairusSW/as-fetch#readme",
   "devDependencies": {
     "@assemblyscript/loader": "^0.27.6",
-    "as-fetch": "^2.0.3",
     "assemblyscript": "^0.27.6",
     "assemblyscript-prettier": "^2.0.2",
     "prettier": "^3.0.0"
